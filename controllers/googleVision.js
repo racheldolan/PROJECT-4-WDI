@@ -1,19 +1,38 @@
 // Imports the Google Cloud client library
-const vision = require('@google-cloud/vision');
-const gcloud = require('gcloud');
-const { bucket } = require('./config/environment');
-// Creates a client
-const client = new vision.ImageAnnotatorClient();
+// const vision = require('@google-cloud/vision');
 
-// Performs label detection on the image file
-client
-  .labelDetection('')
-  .then(results => {
-    const labels = results[0].labelAnnotations;
+const { googleKey } = require('../config/environment');
+const rp = require('request-promise');
+const image = require('./googleVision');
 
-    console.log('Labels:');
-    labels.forEach(label => console.log(label.description));
+function getPhotoAnalysis(req, res, next) {
+
+  const request = {
+    "requests": [
+      {
+        "image": {
+          "content": image },
+        "features": [
+          {
+            "type": "TEXT_DETECTION"
+          }
+        ]
+      }
+    ]
+  };
+
+  rp({
+    method: 'POST',
+    url: `https://vision.googleapis.com/v1/images:annotate?key=${googleKey}`,
+    // data: JSON.stringify(request),
+    json: true
   })
-  .catch(err => {
-    console.error('ERROR:', err);
-  });
+    .then(response => res.json(response))
+    .catch(next);
+
+
+}
+
+module.exports = {
+  getPhotoAnalysis
+};
