@@ -12,6 +12,14 @@ const userSchema = new mongoose.Schema({
   groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Group' }]
 });
 
+userSchema.set('toJSON', {
+  virtuals: true,
+  transform(doc, json){
+    delete json.password;
+    return json;
+  }
+});
+
 userSchema.methods.validatePassword = function(password){
   return bcrypt.compareSync(password, this.password);
 };
