@@ -5,6 +5,7 @@ import 'bulma';
 
 import AuthRegister from './components/auth/Register';
 import AuthLogin from './components/auth/Login';
+import GroupsIndex from './components/groups/Index';
 
 class App extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/register" component={AuthRegister} />
           <Route path="/login" component={AuthLogin} />
+          <Route path="/groups" component={GroupsIndex} />
         </Switch>
       </BrowserRouter>
     );
