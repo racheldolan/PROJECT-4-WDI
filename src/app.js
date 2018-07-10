@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Route, BrowserRouter } from 'react-router-dom';
+
+import AuthRegister from './components/auth/Register';
 
 class App extends React.Component {
   render() {
     return (
-      <h1>WDI32 Project 4</h1>
+      <BrowserRouter>
+        <Route path="/register" component={AuthRegister} />
+      </BrowserRouter>
     );
   }
 }
