@@ -1,4 +1,5 @@
-const User = require('./models/user');
+const User = require('../models/user');
+
 
 function showRoute(req, res, next){
   User
@@ -15,8 +16,17 @@ function updateRoute(req, res, next) {
     .catch(next);
 }
 
+function deleteRoute(req, res, next) {
+  User
+    .findById(req.params.id)
+    .then(user => user.remove())
+    .then(() => res.sendStatus(204))
+    .catch(next);
+}
+
 
 module.exports = {
   show: showRoute,
-  update: updateRoute
+  update: updateRoute,
+  delete: deleteRoute
 };
