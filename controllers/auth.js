@@ -1,12 +1,38 @@
-const User = require('./models/user');
+const User = require('../models/user');
+const jwt =require('jsonwebtoken');
+const { secret } = require('../config/environment');
 
-function showRoute(req, res, next){
-  User
-    .findById(req.params.id)
-    .then(user => res.json(user))
+function register(req, res, next) {
+  User.create(req.body)
+    .then(user => {
+      res.json({
+        user,
+        message: 'Thank you for registering' });
+    })
+    .catch(next);
+}
+function login(req, res, next) {
+  User.findOne({ email: req.body.email })
+    .then(user => {
+      if(!user || !user.validatePassword(req.body.password)) {
+        return res.status(401).json({ message: 'Unauthorized' });
+      }
+
+      const token = jwt.sign({ sub: user._id }, secret, { expiresIn: '6h' });
+
+      res.json({
+        user,
+        token,
+        message: `Welcome back, ${user.username}!`
+      });
+
+    })
+
     .catch(next);
 }
 
+
 module.exports = {
-  show: showRoute
+  register,
+  login
 };
