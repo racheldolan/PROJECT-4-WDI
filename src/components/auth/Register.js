@@ -7,6 +7,10 @@ class AuthRegister extends React.Component {
 
   state = {}
 
+  handleChange = ({ target: { name, value }}) => {
+    this.setState({ [name]: value });
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     axios({
@@ -18,27 +22,28 @@ class AuthRegister extends React.Component {
         Auth.getToken(res.data.token);
         this.props.history.push('/');
       });
-      
+
   }
 
   render(){
     return(
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <div className="field">
           <label className="username">Username</label>
-          <input className="input" type="username" name="username" placeholder="Username"  />
+          <input className="input" type="username" name="username" placeholder="Username" onChange={this.handleChange} />
         </div>
         <div className="field">
           <label className="email">Email</label>
-          <input className="input" name="email" placeholder="Email"  />
+          <input className="input" name="email" placeholder="Email" onChange={this.handleChange} />
         </div>
         <div className="field">
           <label className="password">Password</label>
-          <input className="input" type="password" name="password" placeholder="Password" />
+          <input className="input" type="password" name="password" placeholder="Password" onChange={this.handleChange}/>
         </div>
         <div className="field">
           <label className="passwordConfirmation">Password Confirmation</label>
-          <input className="input" type="password" name="passwordConfirmation" placeholder="Password Confirmation" />
+          <input className="input" type="password" name="passwordConfirmation" placeholder="Password Confirmation"
+            onChange={this.handleChange} />
         </div>
 
         <button className="button">Submit</button>
