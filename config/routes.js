@@ -5,9 +5,9 @@ const users = require('../controllers/users');
 
 router.post('/', googleVision.getPhotoAnalysis);
 
-router.get('/user/:id', users.show);
-
-router.put('/user/:id/edit', users.update);
+router.route('/user/:id')
+  .get(users.show)
+  .put(users.update);
 
 router.post('/login', auth.login);
 
