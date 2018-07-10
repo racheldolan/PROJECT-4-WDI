@@ -5,7 +5,8 @@ const { port, dbURI } = require('./config/environment');
 
 mongoose.connect(dbURI);
 
-
+const routes = require('./config/routes');
+app.use('/api', routes);
 
 app.use(express.static(`${__dirname}/public`));
 
