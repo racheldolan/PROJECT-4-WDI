@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class GroupsIndex extends React.Component {
 
@@ -43,7 +44,9 @@ class GroupsIndex extends React.Component {
               </nav>
             </div>
             <div className="media-right">
-              <button className="button">See More</button>
+              <Link to={`/groups/${group._id}`}>
+                <button className="button">See More</button>
+              </Link>
             </div>
           </article>
         )}
