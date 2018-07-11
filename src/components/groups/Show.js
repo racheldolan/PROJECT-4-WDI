@@ -56,7 +56,7 @@ class GroupsShow extends React.Component {
 
             <div className="column is-half-desktop">
               <div className="media">
-                <p>{this.state.group.about}</p>
+                <p>{this.state.group.info}</p>
                 <button className="button">Join</button>
                 <Link to={`/groups/${this.state.group._id}/edit`}>
                   <button className="button">Edit</button>
