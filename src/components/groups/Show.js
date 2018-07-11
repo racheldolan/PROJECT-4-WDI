@@ -19,6 +19,14 @@ class GroupsShow extends React.Component {
       .then(res => this.setState({ group: res.data }));
   }
 
+  handleDelete = () => {
+    axios({
+      url: `/api/groups/${this.props.match.params.id}`,
+      method: 'DELETE'
+    })
+      .then(() => this.props.history.push('/groups'));
+  }
+
   render(){
     return(
       <main>
@@ -53,7 +61,7 @@ class GroupsShow extends React.Component {
                 <Link to={`/groups/${this.state.group._id}/edit`}>
                   <button className="button">Edit</button>
                 </Link>
-                <button className="button">Delete</button>
+                <button onClick={this.handleDelete}className="button">Delete</button>
               </div>
             </div>
           </div>
