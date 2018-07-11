@@ -29,9 +29,10 @@ class UserShow extends React.Component {
       .then(() => this.props.history.push('/'));
   }
 
+
   render(){
     return(
-      <main>
+      <main className="user-show">
         <section className="hero">
           <div className="hero-body">
             <div className="container">
@@ -49,20 +50,20 @@ class UserShow extends React.Component {
             <div className="column is-one-third-desktop">
               <div className="card">
                 <div className="card-image">
-                  <figure className="image is-4by3">
+                  <figure className="image is-4by4">
                     <img src={this.state.user.image} alt={this.state.user.username} />
                   </figure>
                 </div>
               </div>
+              <Link to={`/users/${Auth.getPayload().sub}/edit`}>
+                <button className="button">Edit</button>
+              </Link>
+              {Auth.isAuthenticated() && <button onClick={this.handleDelete}className="button">Delete Account</button>}
             </div>
 
             <div className="column is-half-desktop">
               <div className="media">
                 <p>{this.state.user.bio}</p>
-                <Link to={`/users/${Auth.getPayload().sub}/edit`}>
-                  <button className="button">Edit</button>
-                </Link>
-                {Auth.isAuthenticated() && <button onClick={this.handleDelete}className="button">Delete</button>}
               </div>
             </div>
           </div>

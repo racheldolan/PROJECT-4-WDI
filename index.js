@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 const bodyParser = require('body-parser');
 const { port, dbURI } = require('./config/environment');
+const errorHandler = require('./lib/errorHandler');
 
 mongoose.connect(dbURI);
 
@@ -15,7 +16,7 @@ app.use('/api', routes);
 
 app.use(express.static(`${__dirname}/public`));
 
-
+app.use(errorHandler);
 
 // app.get('/*', (req, res) => res.sendFile(`${__dirname}/public/index.html`));
 

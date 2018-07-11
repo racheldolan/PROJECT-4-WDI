@@ -24,6 +24,7 @@ class GroupsNew extends React.Component {
 
   render(){
     return(
+      <section className="container">
       <form onSubmit={this.handleSubmit}>
         <div className="field">
           <label className="groupName">Group Name</label>
@@ -48,6 +49,7 @@ class GroupsNew extends React.Component {
 
         <button className="button">Submit Group</button>
       </form>
+    </section>
     );
   }
 }

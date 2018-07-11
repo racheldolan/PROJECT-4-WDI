@@ -7,7 +7,8 @@ const groupSchema = new mongoose.Schema({
   public: { type: Boolean },
   members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   currentBook: { type: String },
-  previousBooks: [{ type: String }]
+  previousBooks: [{ type: String }],
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
 module.exports = mongoose.model('Group', groupSchema);

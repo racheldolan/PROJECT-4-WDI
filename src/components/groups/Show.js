@@ -66,16 +66,16 @@ class GroupsShow extends React.Component {
                   </figure>
                 </div>
               </div>
+              <Link to={`/groups/${this.state.group._id}/edit`}>
+                <button className="button">Edit</button>
+              </Link>
+              <button onClick={this.handleDelete}className="button">Delete</button>
             </div>
 
             <div className="column is-half-desktop">
               <div className="media">
                 <p>{this.state.group.info}</p>
                 <button onClick={this.addToGroup} className="button">Join</button>
-                <Link to={`/groups/${this.state.group._id}/edit`}>
-                  <button className="button">Edit</button>
-                </Link>
-                <button onClick={this.handleDelete}className="button">Delete</button>
               </div>
             </div>
           </div>

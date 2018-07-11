@@ -23,33 +23,37 @@ class GroupsIndex extends React.Component {
   render(){
     return(
       <section>
-        {this.state.groups.map(group =>
-          <article key={group._id} className="media">
-            <figure className="media-left">
-              <p className="image is-64x64">
-                <img src={group.image} />
-              </p>
-            </figure>
-            <div className="media-content">
-              <div className="content">
-                <p>
-                  <strong>{group.groupName}</strong>
-                  <br />
-                  {group.info}
-                </p>
-              </div>
-              <nav className="level is-mobile">
-                <div className="level-left">
+        <div className="container">
+          <div className="notification">
+            {this.state.groups.map(group =>
+              <article key={group._id} className="media">
+                <figure className="media-left">
+                  <p className="image is-64x64">
+                    <img src={group.image} />
+                  </p>
+                </figure>
+                <div className="media-content">
+                  <div className="content">
+                    <p>
+                      <strong>{group.groupName}</strong>
+                      <br />
+                      {group.info}
+                    </p>
+                  </div>
+                  <nav className="level is-mobile">
+                    <div className="level-left">
+                    </div>
+                  </nav>
                 </div>
-              </nav>
-            </div>
-            <div className="media-right">
-              <Link to={`/groups/${group._id}`}>
-                <button className="button">See More</button>
-              </Link>
-            </div>
-          </article>
-        )}
+                <div className="media-right">
+                  <Link to={`/groups/${group._id}`}>
+                    <button className="button">See More</button>
+                  </Link>
+                </div>
+              </article>
+            )}
+          </div>
+        </div>
       </section>
     );
   }

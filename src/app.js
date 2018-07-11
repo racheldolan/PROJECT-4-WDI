@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import 'bulma';
+import './scss/style.scss';
 
 import AuthRegister from './components/auth/Register';
 import AuthLogin from './components/auth/Login';
