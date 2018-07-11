@@ -8,6 +8,7 @@ const GroupsForm = ({ handleSubmit, handleChange, data }) => {
         <label className="groupName">Group Name</label>
         <input className="input" type="groupName" name="groupName" placeholder="Group Name" onChange={handleChange}
           value={data.groupName || ''} />
+        {data.errors.groupName && <small>{data.errors.groupName}</small>}
       </div>
       <div className="field">
         <label className="image">Image</label>

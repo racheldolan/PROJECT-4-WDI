@@ -5,7 +5,9 @@ import Auth from '../../lib/Auth';
 
 class AuthRegister extends React.Component {
 
-  state = {}
+
+    state = {};
+
 
   handleChange = ({ target: { name, value }}) => {
     this.setState({ [name]: value });

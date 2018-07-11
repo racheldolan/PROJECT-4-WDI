@@ -46,7 +46,7 @@ class UserEdit extends React.Component {
         </div>
         <div className="field">
           <label className="image">Image</label>
-          <input className="input" type="image" name="image" placeholder="Image" onChange={this.handleChange}
+          <input className="input" name="image" placeholder="Image" onChange={this.handleChange}
             value={this.state.image || ''}/>
         </div>
         <div className="field">
