@@ -20,7 +20,7 @@ class AuthRegister extends React.Component {
     })
       .then(res => {
         Auth.getToken(res.data.token);
-        this.props.history.push('/');
+        this.props.history.push('/login');
       });
 
   }
