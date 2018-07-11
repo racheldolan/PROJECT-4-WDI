@@ -33,10 +33,11 @@ class GroupsShow extends React.Component {
     axios({
       url: `/api/users/${Auth.getPayload().sub}/groups`,
       method: 'PUT',
-      data: group
+      data: group,
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(res => console.log(res.data));
-      // .then(res => this.setState({ groups: res.data }))
+      .then(res => this.setState({ groups: res.data }))
+      .then(() => this.props.history.push('/groups'));
   }
 
   render(){

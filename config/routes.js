@@ -12,7 +12,7 @@ router.route('/users/:id')
   .put(users.update)
   .delete(users.delete);
 
-router.put('/users/:id/groups', users.addToGroup);
+router.put('/users/:id/groups', secureRoute, users.addToGroup);
 
 router.route('/groups')
   .get(groups.index)
