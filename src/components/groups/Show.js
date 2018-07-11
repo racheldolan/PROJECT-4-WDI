@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class GroupsShow extends React.Component {
 
@@ -49,7 +50,9 @@ class GroupsShow extends React.Component {
               <div className="media">
                 <p>{this.state.group.about}</p>
                 <button className="button">Join</button>
-                <button className="button">Edit</button>
+                <Link to={`/groups/${this.state.group._id}/edit`}>
+                  <button className="button">Edit</button>
+                </Link>
                 <button className="button">Delete</button>
               </div>
             </div>
