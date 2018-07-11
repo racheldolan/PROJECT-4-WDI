@@ -14,15 +14,34 @@ function showRoute(req, res, next) {
     .catch(next);
 }
 
-function createRoute(req, res, next){
+function createRoute(req, res, next) {
   Group
     .create(req.body)
     .then(group => res.status(201).json(group))
     .catch(next);
 }
 
+function updateRoute(req, res, next) {
+  Group
+    .findById(req.params.id)
+    .then(group => group.set(req.body))
+    .then(group => group.save())
+    .then(group => res.json(group))
+    .catch(next);
+}
+
+function deleteRoute(req, res, next) {
+  Group
+    .findById(req.params.id)
+    .then(group => group.remove())
+    .then(() => res.sendStatus(204))
+    .catch(next);
+}
+
 module.exports = {
   index: indexRoute,
   show: showRoute,
-  create: createRoute
+  create: createRoute,
+  update: updateRoute,
+  delete: deleteRoute
 };
