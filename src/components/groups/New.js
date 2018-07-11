@@ -1,11 +1,15 @@
 import React from 'react';
 import axios from 'axios';
+import GroupsForm from '../common/Form';
+import Auth from '../../lib/Auth';
 
 class GroupsNew extends React.Component {
 
   constructor(){
     super();
-    this.state = {};
+    this.state = {
+      errors: [{}]
+    };
   }
 
   handleChange = ({ target: { name, value }}) => {
@@ -17,39 +21,23 @@ class GroupsNew extends React.Component {
     axios({
       url: '/api/groups',
       method: 'POST',
-      data: this.state
+      data: this.state,
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(() => this.props.history.push('/groups'));
+
+      .then(() => this.props.history.push('/groups'))
+      .catch(err => this.setState({ errors: err.response.data.errors }));
   }
 
   render(){
     return(
       <section className="container">
-      <form onSubmit={this.handleSubmit}>
-        <div className="field">
-          <label className="groupName">Group Name</label>
-          <input className="input" type="groupName" name="groupName" placeholder="Group Name" onChange={this.handleChange} />
-        </div>
-        <div className="field">
-          <label className="info">Group Info</label>
-          <textarea className="input" name="info" placeholder="Group Info" onChange={this.handleChange} />
-        </div>
-        <div className="field">
-          <label className="label">Group Privacy</label>
-          <div className="control">
-            <div className="select is-fullwidth">
-              <select name="public" onChange={this.handleChange}>
-                <option value="" disabled>Please choose</option>
-                <option>Public</option>
-                <option>Private</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <button className="button">Submit Group</button>
-      </form>
-    </section>
+        <GroupsForm
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          data={this.state}
+        />
+      </section>
     );
   }
 }
