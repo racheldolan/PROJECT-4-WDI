@@ -10,6 +10,7 @@ import GroupsShow from './components/groups/Show';
 import GroupsNew from './components/groups/New';
 import GroupsEdit from './components/groups/Edit';
 import UserShow from './components/users/Show';
+import UserEdit from './components/users/Edit';
 import Navbar from './components/common/Navbar';
 
 class App extends React.Component {
@@ -25,6 +26,7 @@ class App extends React.Component {
             <Route path="/groups/:id/edit" component={GroupsEdit} />
             <Route path="/groups/:id" component={GroupsShow} />
             <Route path="/groups" component={GroupsIndex} />
+            <Route path="/users/:id/edit" component={UserEdit} />
             <Route path="/users/:id" component={UserShow} />
           </Switch>
         </main>
