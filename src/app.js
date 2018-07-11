@@ -7,6 +7,7 @@ import AuthRegister from './components/auth/Register';
 import AuthLogin from './components/auth/Login';
 import GroupsIndex from './components/groups/Index';
 import GroupsShow from './components/groups/Show';
+import GroupsNew from './components/groups/New';
 
 class App extends React.Component {
   render() {
@@ -15,8 +16,10 @@ class App extends React.Component {
         <Switch>
           <Route path="/register" component={AuthRegister} />
           <Route path="/login" component={AuthLogin} />
+          <Route path="/groups/new" component={GroupsNew} />
           <Route path="/groups/:id" component={GroupsShow} />
           <Route path="/groups" component={GroupsIndex} />
+
         </Switch>
       </BrowserRouter>
     );

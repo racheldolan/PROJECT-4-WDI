@@ -25,7 +25,7 @@ class GroupsShow extends React.Component {
           <div className="hero-body">
             <div className="container">
               <h1 className="title">
-                {this.state.group.title}
+                {this.state.group.groupName}
               </h1>
               <h2 className="subtitle">
                 Hero subtitle
@@ -39,7 +39,7 @@ class GroupsShow extends React.Component {
               <div className="card">
                 <div className="card-image">
                   <figure className="image is-4by3">
-                    <img src={this.state.group.image} alt={this.state.group.title} />
+                    <img src={this.state.group.image} alt={this.state.group.groupName} />
                   </figure>
                 </div>
               </div>
