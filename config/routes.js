@@ -3,6 +3,7 @@ const googleVision = require('../controllers/googleVision');
 const auth = require('../controllers/auth');
 const users = require('../controllers/users');
 const groups = require('../controllers/groups');
+const secureRoute = require('../lib/secureRoute');
 
 router.post('/', googleVision.getPhotoAnalysis);
 
@@ -11,9 +12,11 @@ router.route('/users/:id')
   .put(users.update)
   .delete(users.delete);
 
+router.put('/users/:id/groups', users.addToGroup);
+
 router.route('/groups')
   .get(groups.index)
-  .post(groups.create);
+  .post(secureRoute, groups.create);
 
 router.route('/groups/:id')
   .get(groups.show)
