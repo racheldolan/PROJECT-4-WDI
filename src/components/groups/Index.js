@@ -33,9 +33,9 @@ class GroupsIndex extends React.Component {
             <div className="media-content">
               <div className="content">
                 <p>
-                  <strong>{group.title}</strong>
+                  <strong>{group.groupName}</strong>
                   <br />
-                  {group.about}
+                  {group.info}
                 </p>
               </div>
               <nav className="level is-mobile">

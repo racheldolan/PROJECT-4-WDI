@@ -4,9 +4,17 @@ import axios from 'axios';
 
 class GroupsEdit extends React.Component {
 
-  constructor(){
-    super();
-    this.state = {};
+  state = {};
+
+  componentDidMount(){
+    axios({
+      url: `/api/groups/${this.props.match.params.id}`,
+      method: 'GET'
+    })
+      .then(res => {
+        console.log(res.data);
+        this.setState(res.data);
+      });
   }
 
   handleChange = ({ target: { name, value }}) => {
@@ -28,21 +36,24 @@ class GroupsEdit extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div className="field">
           <label className="groupName">Group Name</label>
-          <input className="input" type="groupName" name="groupName" placeholder="Group Name" onChange={this.handleChange} />
+          <input className="input" type="groupName" name="groupName" placeholder="Group Name" onChange={this.handleChange}
+            value={this.state.groupName || ''} />
         </div>
         <div className="field">
           <label className="image">Image</label>
-          <textarea className="input" name="image" placeholder="Image" onChange={this.handleChange} />
+          <textarea className="input" name="image" placeholder="Image" onChange={this.handleChange}
+            value={this.state.image || ''}/>
         </div>
         <div className="field">
           <label className="info">Group Info</label>
-          <textarea className="input" name="info" placeholder="Group Info" onChange={this.handleChange} />
+          <textarea className="input" name="info" placeholder="Group Info" onChange={this.handleChange}
+            value={this.state.info || ''} />
         </div>
         <div className="field">
           <label className="label">Group Privacy</label>
           <div className="control">
             <div className="select is-fullwidth">
-              <select name="public" onChange={this.handleChange}>
+              <select name="public" onChange={this.handleChange} value={this.state.public || ''}>
                 <option value="" disabled>Please choose</option>
                 <option>Public</option>
                 <option>Private</option>
