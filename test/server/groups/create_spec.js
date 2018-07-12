@@ -41,6 +41,7 @@ describe('POST /groups', () => {
   it('should return a 201 response', done => {
     api.post('/api/groups')
       .set('Authorization', `Bearer ${token}`)
+      .send(groupData)
       .end((err, res) => {
         expect(res.status).to.eq(201);
         done();
