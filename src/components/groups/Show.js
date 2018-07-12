@@ -9,7 +9,10 @@ class GroupsShow extends React.Component {
   constructor(){
     super();
     this.state = {
-      group: {},
+      user: {},
+      group: {
+        members: []
+      },
       books: []
     };
   }
@@ -20,6 +23,12 @@ class GroupsShow extends React.Component {
       method: 'GET'
     })
       .then(res => this.setState({ group: res.data }));
+
+    axios({
+      url: `/api/users/${Auth.getPayload().sub}`,
+      method: 'GET'
+    })
+      .then(res => this.setState({ user: res.data }));
   }
 
   handleDelete = () => {
@@ -30,8 +39,18 @@ class GroupsShow extends React.Component {
       .then(() => this.props.history.push('/groups'));
   }
 
+  addToUser(){
+    axios({
+      url: `/api/groups/${this.props.match.params.id}/users`,
+      method: 'PUT',
+      data: this.state.user,
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
+    });
+  }
+
   addToGroup = (e) => {
     e.preventDefault();
+    this.addToUser();
     axios({
       url: `/api/users/${Auth.getPayload().sub}/groups`,
       method: 'PUT',
@@ -40,6 +59,7 @@ class GroupsShow extends React.Component {
     })
       // .then(res => this.setState({ groups: res.data }))
       .then(() => this.props.history.push('/groups'));
+
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -68,7 +88,7 @@ class GroupsShow extends React.Component {
 
 
   render(){
-    // console.log(Auth.getPayload().sub);
+    console.log(this.state.group.members);
     return(
       <main>
         <section className="hero">
@@ -79,11 +99,11 @@ class GroupsShow extends React.Component {
               </h1>
               <h2 className="subtitle">
                 {this.state.books.map(book =>
-                  <ul key={book._id}>
-                    <li key={book._id}>
-                      <a href={book.url} key={book._id}>{book.url}</a>
-                    </li>
-                  </ul>
+                  // <ul key={book._id}>
+                  //   <li key={book._id}>
+                  <a href={book.url} key={book._id}>{book.url}</a>
+                  //   </li>
+                  // </ul>
                 )}
                 Hero subtitle
               </h2>
@@ -122,6 +142,17 @@ class GroupsShow extends React.Component {
           </form>
 
 
+          <div className="column is-one-third-desktop">
+            {this.state.group.members.map(member =>
+              <div key={member._id} className="card">
+                <div className="card-image">
+                  <figure className="image is-4by4">
+                    <img src={member.image} alt={member.username} />
+                  </figure>
+                </div>
+              </div>
+            )}
+          </div>
         </section>
       </main>
     );

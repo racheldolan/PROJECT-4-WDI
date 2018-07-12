@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
@@ -8,8 +9,13 @@ const userSchema = new mongoose.Schema({
   admin: {type: Boolean},
   image: { type: String, default: 'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png'},
   bio: { type: String, default: 'Update your bio!' },
-  favourites: [],
-  groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Group' }]
+  favourites: []
+});
+
+userSchema.virtual('groups', {
+  localField: '_id',
+  foreignField: 'members',
+  ref: 'Group'
 });
 
 userSchema.set('toJSON', {

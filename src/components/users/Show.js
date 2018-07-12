@@ -11,7 +11,6 @@ class UserShow extends React.Component {
       user: {
         groups: []
       }
-
     };
   }
 
@@ -62,6 +61,8 @@ class UserShow extends React.Component {
                 <button className="button">Edit</button>
               </Link>
               {Auth.isAuthenticated() && <button onClick={this.handleDelete}className="button">Delete Account</button>}
+              <hr />
+              <h1 className="title">My Groups:</h1>
             </div>
 
             <div className="column is-two-thirds-desktop">
@@ -70,25 +71,26 @@ class UserShow extends React.Component {
               </div>
             </div>
 
+            {this.state.user.groups.map(group =>
+              <div  key={group._id} className="column is-one-third-desktop">
 
-            <div className="column is-one-third-desktop">
-              <h1 className="title">My Groups</h1>
-              <div className="card">
-                <div className="card-image">
-                  <figure className="image is-4by4">
-                    {this.state.user.groups.map(group =>
+                <div key={group._id} className="card">
+                  <div className="card-image">
+                    <figure className="image is-4by4">
+
                       <div key={group._id}>
                         <Link to={`/groups/${group._id}`}>
                           <img key={group._id} src={group.image} alt={group.groupName} />
                         </Link>
                         <h2 className="subtitle" key={group._id}>{group.groupName}</h2>
                       </div>
-                    )}
-                  </figure>
 
+                    </figure>
+
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
           </div>
         </section>

@@ -13,6 +13,7 @@ router.route('/users/:id')
   .delete(users.delete);
 
 router.put('/users/:id/groups', secureRoute, users.addToGroup);
+router.put('/groups/:id/users', secureRoute, groups.addToUser);
 
 router.route('/groups')
   .get(groups.index)

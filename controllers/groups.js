@@ -38,10 +38,23 @@ function deleteRoute(req, res, next) {
     .catch(next);
 }
 
+function addToUserRoute(req, res, next) {
+  console.log(req.body);
+  Group
+    .findById(req.params.id)
+    .then(group => {
+      group.members.push(req.body);
+      group.save();
+    })
+    .then(group => res.json(group))
+    .catch(next);
+}
+
 module.exports = {
   index: indexRoute,
   show: showRoute,
   create: createRoute,
   update: updateRoute,
-  delete: deleteRoute
+  delete: deleteRoute,
+  addToUser: addToUserRoute
 };
