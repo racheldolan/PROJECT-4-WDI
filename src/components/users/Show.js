@@ -49,7 +49,7 @@ class UserShow extends React.Component {
           </div>
         </section>
         <section className="container">
-          <div className="columns">
+          <div className="columns is-multiline">
             <div className="column is-one-third-desktop">
               <div className="card">
                 <div className="card-image">
@@ -63,24 +63,33 @@ class UserShow extends React.Component {
               </Link>
               {Auth.isAuthenticated() && <button onClick={this.handleDelete}className="button">Delete Account</button>}
             </div>
-            <div className="column is-one-third-desktop">
-              <div className="card">
-                <div className="card-image">
-                  <figure className="image is-4by4">
-                    {this.state.user.groups.map(group =>
-                      <img key={group._id} src={group.image} alt={group.groupName} />
-                    )}
 
-                  </figure>
-                </div>
-              </div>
-            </div>
-
-            <div className="column is-half-desktop">
+            <div className="column is-two-thirds-desktop">
               <div className="media">
                 <p>{this.state.user.bio}</p>
               </div>
             </div>
+
+
+            <div className="column is-one-third-desktop">
+              <h1 className="title">My Groups</h1>
+              <div className="card">
+                <div className="card-image">
+                  <figure className="image is-4by4">
+                    {this.state.user.groups.map(group =>
+                      <div key={group._id}>
+                        <Link to={`/groups/${group._id}`}>
+                          <img key={group._id} src={group.image} alt={group.groupName} />
+                        </Link>
+                        <h2 className="subtitle" key={group._id}>{group.groupName}</h2>
+                      </div>
+                    )}
+                  </figure>
+
+                </div>
+              </div>
+            </div>
+
           </div>
         </section>
       </main>
