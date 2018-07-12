@@ -26,7 +26,7 @@ function deleteRoute(req, res, next) {
 }
 
 function addToGroupRoute(req, res, next) {
-  console.log(req.currentUser._id);
+  console.log(req.body);
   User
     .findById(req.currentUser._id)
     .then(user => {

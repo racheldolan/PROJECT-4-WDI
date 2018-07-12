@@ -5,7 +5,7 @@ const users = require('../controllers/users');
 const groups = require('../controllers/groups');
 const secureRoute = require('../lib/secureRoute');
 
-router.post('/', googleVision.getPhotoAnalysis);
+router.post('/vision', googleVision.getPhotoAnalysis);
 
 router.route('/users/:id')
   .get(users.show)

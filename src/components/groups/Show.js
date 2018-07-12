@@ -2,13 +2,15 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Auth from '../../lib/Auth';
+import Base64 from '../common/Base64';
 
 class GroupsShow extends React.Component {
 
   constructor(){
     super();
     this.state = {
-      group: {}
+      group: {},
+      books: []
     };
   }
 
@@ -28,16 +30,31 @@ class GroupsShow extends React.Component {
       .then(() => this.props.history.push('/groups'));
   }
 
-  addToGroup = (e, group) => {
+  addToGroup = (e) => {
     e.preventDefault();
     axios({
       url: `/api/users/${Auth.getPayload().sub}/groups`,
       method: 'PUT',
-      data: group,
+      data: this.state,
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(res => this.setState({ groups: res.data }))
+      // .then(res => this.setState({ groups: res.data }))
       .then(() => this.props.history.push('/groups'));
+  }
+
+  handleChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value }, () => console.log(this.state));
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    axios({
+      method: 'POST',
+      url: '/api/vision',
+      data: this.state
+    })
+      // .then(res => console.log(res.data));
+      .then(res => this.setState({ books: res.data}));
   }
 
   render(){
@@ -51,6 +68,13 @@ class GroupsShow extends React.Component {
                 {this.state.group.groupName}
               </h1>
               <h2 className="subtitle">
+                {this.state.books.map(book =>
+                  <ul key={book._id}>
+                    <li key={book._id}>
+                      <a href={book.url} key={book._id}>{book.url}</a>
+                    </li>
+                  </ul>
+                )}
                 Hero subtitle
               </h2>
             </div>
@@ -79,6 +103,16 @@ class GroupsShow extends React.Component {
               </div>
             </div>
           </div>
+
+          <form onSubmit={this.handleSubmit}>
+
+            <Base64 name="image" handleChange={this.handleChange} />
+            <button>Submit</button>
+
+          </form>
+
+
+
         </section>
       </main>
     );

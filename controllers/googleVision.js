@@ -3,20 +3,14 @@
 
 const { googleKey } = require('../config/environment');
 const rp = require('request-promise');
-const image = require('./googleVision');
 
 function getPhotoAnalysis(req, res, next) {
 
   const request = {
     requests: [
       {
-        image: {
-          content: image },
-        features: [
-          {
-            type: 'TEXT_DETECTION'
-          }
-        ]
+        image: { content: req.body.image },
+        features: [{ type: 'WEB_DETECTION' }]
       }
     ]
   };
@@ -24,10 +18,11 @@ function getPhotoAnalysis(req, res, next) {
   rp({
     method: 'POST',
     url: `https://vision.googleapis.com/v1/images:annotate?key=${googleKey}`,
-    data: JSON.stringify(request),
+    body: request,
     json: true
   })
-    .then(response => res.json(response))
+    .then(response => res.json(response.responses[0].webDetection.pagesWithMatchingImages))
+    // .then(response => res.json(response.responses[0].labelAnnotations))
     .catch(next);
 }
 

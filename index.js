@@ -10,7 +10,9 @@ mongoose.connect(dbURI);
 
 const routes = require('./config/routes');
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  limit: '1000kb'
+}));
 
 app.use('/api', routes);
 

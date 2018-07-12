@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import GroupsForm from '../common/Form';
+import GroupsForm from './Form';
 
 class GroupsEdit extends React.Component {
 
