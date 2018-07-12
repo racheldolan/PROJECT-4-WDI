@@ -10,6 +10,7 @@ function indexRoute(req, res, next) {
 function showRoute(req, res, next) {
   Group
     .findById(req.params.id)
+    .populate('members')
     .then(group => res.json(group))
     .catch(next);
 }

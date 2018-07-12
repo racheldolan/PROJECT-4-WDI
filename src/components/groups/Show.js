@@ -99,11 +99,11 @@ class GroupsShow extends React.Component {
               </h1>
               <h2 className="subtitle">
                 {this.state.books.map(book =>
-                  // <ul key={book._id}>
-                  //   <li key={book._id}>
-                  <a href={book.url} key={book._id}>{book.url}</a>
-                  //   </li>
-                  // </ul>
+                  <ul key={book._id}>
+                    <li key={book}>
+                      <a href={book.url} key={book.url}>{book.url}</a>
+                    </li>
+                  </ul>
                 )}
                 Hero subtitle
               </h2>
@@ -135,20 +135,23 @@ class GroupsShow extends React.Component {
           </div>
 
           <form onSubmit={this.handleSubmit}>
-
             <Base64 name="image" handleChange={this.handleChange} />
             <button>Submit</button>
-
           </form>
 
 
           <div className="column is-one-third-desktop">
             {this.state.group.members.map(member =>
               <div key={member._id} className="card">
-                <div className="card-image">
-                  <figure className="image is-4by4">
+                <div key={member} className="card-image">
+                  <figure key={member._id} className="image is-4by4">
                     <img src={member.image} alt={member.username} />
                   </figure>
+                  <div className="media">
+                    <Link to={`/users/${member._id}`}>
+                      <p>{member.username}</p>
+                    </Link>
+                  </div>
                 </div>
               </div>
             )}
