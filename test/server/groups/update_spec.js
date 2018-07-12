@@ -19,7 +19,7 @@ const newGroupData = {
 let token;
 let groupId;
 
-describe('PUT /api/groups/:id', () => {
+describe('PUT /groups/:id', () => {
 
   beforeEach(done => {
     Group.remove({})

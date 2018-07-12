@@ -11,11 +11,16 @@ const groupData = {
 };
 
 let token;
+let groupId;
 
-describe('POST /groups', () => {
+describe('DELETE /groups/:id', () => {
 
   beforeEach(done => {
     Group.remove({})
+      .then(() => Group.create(groupData))
+      .then(group => {
+        groupId = group._id;
+      })
       .then(() => User.remove({}))
       .then(() => User.create({
         username: 'testing',
@@ -30,42 +35,31 @@ describe('POST /groups', () => {
   });
 
   it('should return a 401 response without a token', done => {
-    api.post('/api/groups')
+    api.delete(`/api/groups/${groupId}`)
       .end((err, res) => {
         expect(res.status).to.eq(401);
         done();
       });
   });
 
-  // test below failing with 422 status
-  it('should return a 201 response', done => {
-    api.post('/api/groups')
+  it('should return a 204 response', done => {
+    api.delete(`/api/groups/${groupId}`)
       .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
-        expect(res.status).to.eq(201);
+        expect(res.status).to.eq(204);
         done();
       });
   });
 
-  it('should return an object', done => {
-    api.post('/api/groups')
+  it('should delete data', done => {
+    api.delete(`/api/groups/${groupId}`)
       .set('Authorization', `Bearer ${token}`)
-      .send(groupData)
-      .end((err, res) => {
-        expect(res.body).to.be.an('object');
-        done();
-      });
-  });
-
-  it('should return the correct data', done => {
-    api.post('/api/groups')
-      .set('Authorization', `Bearer ${token}`)
-      .send(groupData)
-      .end((err, res) => {
-        expect(res.body.groupName).to.eq(groupData.groupName);
-        expect(res.body.info).to.eq(groupData.info);
-        expect(res.body.image).to.eq(groupData.image);
-        done();
+      .end(() => {
+        Group.findById(groupId)
+          .then(group => {
+            expect(group).to.not.be.ok;
+            done();
+          });
       });
   });
 
