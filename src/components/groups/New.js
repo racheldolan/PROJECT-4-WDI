@@ -17,6 +17,7 @@ class GroupsNew extends React.Component {
   }
 
   handleSubmit = (e) => {
+    console.log(this.state);
     e.preventDefault();
     axios({
       url: '/api/groups',
@@ -24,7 +25,6 @@ class GroupsNew extends React.Component {
       data: this.state,
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
-
       .then(() => this.props.history.push('/groups'))
       .catch(err => this.setState({ errors: err.response.data.errors }));
   }

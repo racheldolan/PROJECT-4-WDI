@@ -6,7 +6,7 @@ const GroupsForm = ({ handleSubmit, handleChange, data }) => {
     <form onSubmit={handleSubmit}>
       <div className="field">
         <label className="groupName">Group Name</label>
-        <input className="input" type="groupName" name="groupName" placeholder="Group Name" onChange={handleChange}
+        <input className="input" name="groupName" placeholder="Group Name" onChange={handleChange}
           value={data.groupName || ''} />
         {data.errors.groupName && <small>{data.errors.groupName}</small>}
       </div>
