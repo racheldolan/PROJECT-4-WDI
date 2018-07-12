@@ -70,7 +70,7 @@ class GroupsShow extends React.Component {
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
       // .then(res => this.setState({ groups: res.data }))
-      .then(() => this.props.history.push('/groups'));
+      // .then(() => this.props.history.push('/groups'));
   }
 
   handleChange = ({ target: { name, value } }) => {
