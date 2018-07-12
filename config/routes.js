@@ -22,8 +22,8 @@ router.route('/groups')
 
 router.route('/groups/:id')
   .get(groups.show)
-  .put(groups.update)
-  .delete(groups.delete);
+  .put(secureRoute, groups.update)
+  .delete(secureRoute, groups.delete);
 
 router.post('/login', auth.login);
 
