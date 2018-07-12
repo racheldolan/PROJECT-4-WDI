@@ -22,13 +22,15 @@ class GroupsShow extends React.Component {
       url: `/api/groups/${this.props.match.params.id}`,
       method: 'GET'
     })
-      .then(res => this.setState({ group: res.data }));
+      .then(res => this.setState({ group: res.data }))
+      .catch(err => this.setState({ error: err.message }));
 
     axios({
       url: `/api/users/${Auth.getPayload().sub}`,
       method: 'GET'
     })
-      .then(res => this.setState({ user: res.data }));
+      .then(res => this.setState({ user: res.data }))
+      .catch(err => this.setState({ error: err.message }));
   }
 
   handleDelete = () => {

@@ -37,7 +37,6 @@ describe('POST /groups', () => {
       });
   });
 
-  // test below failing with 422 status
   it('should return a 201 response', done => {
     api.post('/api/groups')
       .set('Authorization', `Bearer ${token}`)

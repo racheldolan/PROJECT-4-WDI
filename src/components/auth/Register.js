@@ -5,7 +5,8 @@ import Auth from '../../lib/Auth';
 
 class AuthRegister extends React.Component {
 
-
+  // constructor(){
+  //   super();
     state = {};
 
 
@@ -24,7 +25,6 @@ class AuthRegister extends React.Component {
         Auth.getToken(res.data.token);
         this.props.history.push('/login');
       });
-
   }
 
   render(){

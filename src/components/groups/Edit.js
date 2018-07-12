@@ -1,10 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 import GroupsForm from './Form';
+import Auth from '../../lib/Auth';
 
 class GroupsEdit extends React.Component {
 
-  state = {};
+  constructor(){
+    super();
+    this.state = {
+      errors: [{}]
+    };
+  }
 
   componentDidMount(){
     axios({
@@ -26,9 +32,11 @@ class GroupsEdit extends React.Component {
     axios({
       url: `/api/groups/${this.props.match.params.id}`,
       method: 'PUT',
-      data: this.state
+      data: this.state,
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(() => this.props.history.push('/groups'));
+      .then(() => this.props.history.push('/groups'))
+      .catch(err => this.setState({ errors: err.response.data.errors }));
   }
 
   render(){
