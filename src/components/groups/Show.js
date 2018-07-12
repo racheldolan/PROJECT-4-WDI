@@ -48,6 +48,18 @@ class GroupsShow extends React.Component {
     });
   }
 
+  removeFromGroup = (group) => {
+    const index = this.state.user.groups.indexOf(group);
+    this.state.user.groups.splice(index, 1);
+    axios({
+      method: 'PUT',
+      url: `/api/groups/${this.props.match.params.id}/users/delete`,
+      data: this.state.user
+    })
+      .then(() => this.props.history.push('/groups'));
+  }
+
+
   addToGroup = (e) => {
     e.preventDefault();
     this.addToUser();
@@ -59,7 +71,6 @@ class GroupsShow extends React.Component {
     })
       // .then(res => this.setState({ groups: res.data }))
       .then(() => this.props.history.push('/groups'));
-
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -130,6 +141,7 @@ class GroupsShow extends React.Component {
               <div className="media">
                 <p>{this.state.group.info}</p>
                 <button onClick={this.addToGroup} className="button">Join</button>
+                <button onClick={this.removeFromGroup} className="button">Leave Group</button>
               </div>
             </div>
           </div>

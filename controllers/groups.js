@@ -40,11 +40,21 @@ function deleteRoute(req, res, next) {
 }
 
 function addToUserRoute(req, res, next) {
-  console.log(req.body);
+  // console.log(req.body);
   Group
     .findById(req.params.id)
     .then(group => {
       group.members.push(req.body);
+      group.save();
+    })
+    .then(group => res.json(group))
+    .catch(next);
+}
+
+function deleteFromUserRoute(req, res, next) {
+  Group.findById(req.params.id)
+    .then(group => {
+      group.members = req.body.members;
       group.save();
     })
     .then(group => res.json(group))
@@ -57,5 +67,6 @@ module.exports = {
   create: createRoute,
   update: updateRoute,
   delete: deleteRoute,
-  addToUser: addToUserRoute
+  addToUser: addToUserRoute,
+  deleteFromUser: deleteFromUserRoute
 };
