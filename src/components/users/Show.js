@@ -8,7 +8,10 @@ class UserShow extends React.Component {
   constructor(){
     super();
     this.state = {
-      user: {}
+      user: {
+        groups: []
+      }
+
     };
   }
 
@@ -59,6 +62,18 @@ class UserShow extends React.Component {
                 <button className="button">Edit</button>
               </Link>
               {Auth.isAuthenticated() && <button onClick={this.handleDelete}className="button">Delete Account</button>}
+            </div>
+            <div className="column is-one-third-desktop">
+              <div className="card">
+                <div className="card-image">
+                  <figure className="image is-4by4">
+                    {this.state.user.groups.map(group =>
+                      <img key={group._id} src={group.image} alt={group.groupName} />
+                    )}
+
+                  </figure>
+                </div>
+              </div>
             </div>
 
             <div className="column is-half-desktop">

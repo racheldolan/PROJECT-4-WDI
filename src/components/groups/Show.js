@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Auth from '../../lib/Auth';
-import Base64 from '../common/Base64';
+import Base64  from '../common/Base64';
 
 class GroupsShow extends React.Component {
 
@@ -35,7 +35,7 @@ class GroupsShow extends React.Component {
     axios({
       url: `/api/users/${Auth.getPayload().sub}/groups`,
       method: 'PUT',
-      data: this.state,
+      data: this.state.group,
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
       // .then(res => this.setState({ groups: res.data }))
@@ -53,9 +53,19 @@ class GroupsShow extends React.Component {
       url: '/api/vision',
       data: this.state
     })
-      // .then(res => console.log(res.data));
       .then(res => this.setState({ books: res.data}));
   }
+
+  // handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   axios({
+  //     method: 'POST',
+  //     url: `/api/groups/${this.props.match.params.id}`,
+  //     data: this.state
+  //   })
+  //     .then(() => this.props.history.push(`/groups/${this.props.match.params.id}`));
+  // }
+
 
   render(){
     // console.log(Auth.getPayload().sub);
@@ -110,7 +120,6 @@ class GroupsShow extends React.Component {
             <button>Submit</button>
 
           </form>
-
 
 
         </section>
