@@ -39,18 +39,8 @@ class GroupsShow extends React.Component {
       .then(() => this.props.history.push('/groups'));
   }
 
-  addToUser(){
-    axios({
-      url: `/api/groups/${this.props.match.params.id}/users`,
-      method: 'PUT',
-      data: this.state.user,
-      headers: { Authorization: `Bearer ${Auth.getToken()}`}
-    });
-  }
-
   addToGroup = (e) => {
     e.preventDefault();
-    this.addToUser();
     axios({
       url: `/api/users/${Auth.getPayload().sub}/groups`,
       method: 'PUT',
@@ -59,8 +49,13 @@ class GroupsShow extends React.Component {
     })
       // .then(res => this.setState({ groups: res.data }))
       .then(() => this.props.history.push('/groups'));
-
   }
+
+  // checkGroup(){
+  //    this.state.group.members.filter(member, index => {
+  //     return members[index] === member._id;
+  //   }
+  // }
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value }, () => console.log(this.state));
