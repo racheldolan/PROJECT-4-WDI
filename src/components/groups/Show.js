@@ -70,9 +70,9 @@ class GroupsShow extends React.Component {
       method: 'PUT',
       data: this.state.group,
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
-    })
-      // .then(res => this.setState({ groups: res.data }))
-      // .then(() => this.props.history.push('/groups'));
+    });
+    // .then(res => this.setState({ groups: res.data }))
+    // .then(() => this.props.history.push('/groups'));
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -129,7 +129,7 @@ class GroupsShow extends React.Component {
               <div className="card">
                 <div className="card-image">
                   <figure className="image is-4by3">
-                    <img src={this.state.group.image} alt={this.state.group.groupName} />
+                    <img className="image" src={this.state.group.image} alt={this.state.group.groupName} />
                   </figure>
                 </div>
               </div>
@@ -140,8 +140,9 @@ class GroupsShow extends React.Component {
             </div>
 
             <div className="column is-half-desktop">
-              <div className="media">
+              <div className="content">
                 <p>{this.state.group.info}</p>
+                <p>Members: {this.state.group.members.length}</p>
                 <button onClick={this.addToGroup} className="button">Join</button>
                 <button onClick={this.removeFromGroup} className="button">Leave Group</button>
               </div>
@@ -159,7 +160,7 @@ class GroupsShow extends React.Component {
               <div key={member._id} className="card">
                 <div key={member} className="card-image">
                   <figure key={member._id} className="image is-4by4">
-                    <img src={member.image} alt={member.username} />
+                    <img className="image" src={member.image} alt={member.username} />
                   </figure>
                   <div className="media">
                     <Link to={`/users/${member._id}`}>
