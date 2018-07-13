@@ -5,10 +5,12 @@ import Auth from '../../lib/Auth';
 
 class AuthRegister extends React.Component {
 
-  // constructor(){
-  //   super();
-    state = {};
-
+  constructor(){
+    super();
+    this.state = {
+      errors: {}
+    };
+  }
 
   handleChange = ({ target: { name, value }}) => {
     this.setState({ [name]: value });
@@ -23,11 +25,13 @@ class AuthRegister extends React.Component {
     })
       .then(res => {
         Auth.getToken(res.data.token);
-        this.props.history.push('/login');
+        this.props.history.push('/login')
+          .catch(err => this.setState({ errors: err.response.data.errors }));
       });
   }
 
   render(){
+    console.log(this.state.errors);
     return(
       <section className="container">
         <form onSubmit={this.handleSubmit}>

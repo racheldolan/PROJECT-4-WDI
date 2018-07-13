@@ -13,7 +13,8 @@ class GroupsShow extends React.Component {
       group: {
         members: []
       },
-      books: []
+      books: [],
+      image: {}
     };
   }
 
@@ -31,6 +32,12 @@ class GroupsShow extends React.Component {
     })
       .then(res => this.setState({ user: res.data }))
       .catch(err => this.setState({ error: err.message }));
+    //
+    // axios({
+    //   url: `/api/groups/${this.props.match.params.id}/books`,
+    //   method: 'GET'
+    // })
+    //   .then(res => this.setState({ image: res.data }));
   }
 
   handleDelete = () => {
@@ -41,14 +48,6 @@ class GroupsShow extends React.Component {
       .then(() => this.props.history.push('/groups'));
   }
 
-  addToUser(){
-    axios({
-      url: `/api/groups/${this.props.match.params.id}/users`,
-      method: 'PUT',
-      data: this.state.user,
-      headers: { Authorization: `Bearer ${Auth.getToken()}`}
-    });
-  }
 
   removeFromGroup = (group) => {
     const index = this.state.user.groups.indexOf(group);
@@ -61,6 +60,14 @@ class GroupsShow extends React.Component {
       .then(() => this.props.history.push('/groups'));
   }
 
+  addToUser(){
+    axios({
+      url: `/api/groups/${this.props.match.params.id}/users`,
+      method: 'PUT',
+      data: this.state.user,
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
+    });
+  }
 
   addToGroup = (e) => {
     e.preventDefault();
@@ -79,29 +86,20 @@ class GroupsShow extends React.Component {
     this.setState({ [name]: value }, () => console.log(this.state));
   }
 
+  // makes the request to the back end which then makes a proxy request to vision api
   handleSubmit = (e) => {
     e.preventDefault();
     axios({
-      method: 'POST',
       url: '/api/vision',
+      method: 'POST',
       data: this.state
     })
       .then(res => this.setState({ books: res.data}));
   }
 
-  // handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   axios({
-  //     method: 'POST',
-  //     url: `/api/groups/${this.props.match.params.id}`,
-  //     data: this.state
-  //   })
-  //     .then(() => this.props.history.push(`/groups/${this.props.match.params.id}`));
-  // }
-
-
   render(){
-    console.log(this.state.group.members);
+    // console.log(this.state.group.members);
+    console.log(this.state.image);
     return(
       <main>
         <section className="hero">
@@ -110,14 +108,8 @@ class GroupsShow extends React.Component {
               <h1 className="title">
                 {this.state.group.groupName}
               </h1>
+              {/* displays books urls currently - needs to move */}
               <h2 className="subtitle">
-                {this.state.books.map(book =>
-                  <ul key={book._id}>
-                    <li key={book}>
-                      <a href={book.url} key={book.url}>{book.url}</a>
-                    </li>
-                  </ul>
-                )}
                 Hero subtitle
               </h2>
             </div>
@@ -146,15 +138,25 @@ class GroupsShow extends React.Component {
                 <button onClick={this.addToGroup} className="button">Join</button>
                 <button onClick={this.removeFromGroup} className="button">Leave Group</button>
               </div>
+              {this.state.books.map(book =>
+                <ul key={book._id}>
+                  <li key={book}>
+                    <a href={book.url} target="_blank" key={book.url}>{book.url}</a>
+                  </li>
+                </ul>
+              )}
             </div>
           </div>
 
+          {/* form for inputting images which then makes call to api on submit */}
           <form onSubmit={this.handleSubmit}>
             <Base64 name="image" handleChange={this.handleChange} />
             <button>Submit</button>
           </form>
 
+          <img className="image-book" src={`data:image/jpeg;base64, ${this.state.image}`} />
 
+          {/*  displays users who belong to a group */}
           <div className="column is-one-third-desktop">
             {this.state.group.members.map(member =>
               <div key={member._id} className="card">
