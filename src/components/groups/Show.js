@@ -14,7 +14,7 @@ class GroupsShow extends React.Component {
         members: []
       },
       books: [],
-      image: {}
+      images: []
     };
   }
 
@@ -32,12 +32,12 @@ class GroupsShow extends React.Component {
     })
       .then(res => this.setState({ user: res.data }))
       .catch(err => this.setState({ error: err.message }));
-    
+
     axios({
       url: `/api/groups/${this.props.match.params.id}/books`,
       method: 'GET'
     })
-      .then(res => this.setState({ image: res.data }));
+      .then(res => this.setState({ images: res.data }));
   }
 
   handleDelete = () => {
@@ -99,7 +99,7 @@ class GroupsShow extends React.Component {
 
   render(){
     // console.log(this.state.group.members);
-    console.log(this.state.image);
+    console.log(this.state.images);
     return(
       <main>
         <section className="hero">
@@ -153,9 +153,9 @@ class GroupsShow extends React.Component {
             <Base64 name="image" handleChange={this.handleChange} />
             <button>Submit</button>
           </form>
-
-          <img className="image-book" src={`data:image/jpeg;base64, ${this.state.image}`} />
-
+          {this.state.images.map(image =>
+            <img key={image._id} className="image-book" src={`data:image/jpeg;base64, ${image.image}`} />
+          )}
           {/*  displays users who belong to a group */}
           <div className="column is-one-third-desktop">
             {this.state.group.members.map(member =>
