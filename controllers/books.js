@@ -1,5 +1,12 @@
 const Book = require('../models/book');
 
+function indexRoute(req, res, next) {
+  Book
+    .find()
+    .then(books => res.json(books))
+    .catch(next);
+}
+
 function createRoute(req, res, next) {
   Book
     .create(req.body)
@@ -25,6 +32,7 @@ function deleteRoute(req, res, next) {
 }
 
 module.exports = {
+  index: indexRoute,
   create: createRoute,
   update: updateRoute,
   delete: deleteRoute

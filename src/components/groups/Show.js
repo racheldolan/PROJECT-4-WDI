@@ -32,12 +32,12 @@ class GroupsShow extends React.Component {
     })
       .then(res => this.setState({ user: res.data }))
       .catch(err => this.setState({ error: err.message }));
-    //
-    // axios({
-    //   url: `/api/groups/${this.props.match.params.id}/books`,
-    //   method: 'GET'
-    // })
-    //   .then(res => this.setState({ image: res.data }));
+    
+    axios({
+      url: `/api/groups/${this.props.match.params.id}/books`,
+      method: 'GET'
+    })
+      .then(res => this.setState({ image: res.data }));
   }
 
   handleDelete = () => {

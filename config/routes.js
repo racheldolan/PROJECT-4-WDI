@@ -26,7 +26,9 @@ router.route('/groups/:id')
   .put(secureRoute, groups.update)
   .delete(secureRoute, groups.delete);
 
-router.post('/groups/:id/books', books.create); 
+router.route('/groups/:id/books')
+  .get(books.index)
+  .post(books.create);
 
 router.post('/login', auth.login);
 
