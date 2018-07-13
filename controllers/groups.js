@@ -11,6 +11,7 @@ function showRoute(req, res, next) {
   Group
     .findById(req.params.id)
     .populate('members')
+    // .populate('books')
     .then(group => res.json(group))
     .catch(next);
 }
@@ -39,22 +40,33 @@ function deleteRoute(req, res, next) {
     .catch(next);
 }
 
-function addToUserRoute(req, res, next) {
-  // console.log(req.body);
+function addUserRoute(req, res, next) {
   Group
     .findById(req.params.id)
     .then(group => {
-      group.members.push(req.body);
+      group.members.push(req.currentUser);
       group.save();
     })
     .then(group => res.json(group))
     .catch(next);
 }
 
-function deleteFromUserRoute(req, res, next) {
+// function addBookToGroupRoute(req, res, next) {
+//   Group
+//     .findById(req.params.id)
+//     .then(group => {
+//       group.books.push(req.body);
+//       group.save();
+//     })
+//     .then(group => res.json(group))
+//     .catch(next);
+// }
+
+function removeUserRoute(req, res, next) {
   Group.findById(req.params.id)
     .then(group => {
-      group.members = req.body.members;
+      const index = group.members.indexOf(req.currentUser._id);
+      group.members.splice(index, 1);
       group.save();
     })
     .then(group => res.json(group))
@@ -67,6 +79,6 @@ module.exports = {
   create: createRoute,
   update: updateRoute,
   delete: deleteRoute,
-  addToUser: addToUserRoute,
-  deleteFromUser: deleteFromUserRoute
+  addUser: addUserRoute,
+  removeUser: removeUserRoute
 };

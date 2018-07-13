@@ -5,9 +5,8 @@ const Base64 = ({ name, handleChange }) => {
   const fileReader = new FileReader();
 
   fileReader.onload = function() {
-    const image = this.result.replace(/^data:image\/.+;base64,/, '');
     handleChange({
-      target: { name: name, value: image }
+      target: { name: name, value: this.result }
     });
   };
 

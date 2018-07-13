@@ -21,6 +21,7 @@ class AuthLogin extends React.Component {
     })
       .then(res => {
         Auth.setToken(res.data.token);
+        Auth.setCurrentUser(res.data.user);
         this.props.history.push('/');
       })
       .catch(() => {

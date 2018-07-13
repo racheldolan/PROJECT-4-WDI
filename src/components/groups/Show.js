@@ -11,35 +11,24 @@ class GroupsShow extends React.Component {
     this.state = {
       user: {},
       group: {
-        members: []
-      },
-      books: [],
-      images: []
+        members: [],
+        books: []
+      }
     };
   }
-
+  // getting data from back end to display on page
   componentDidMount() {
+
     axios({
       url: `/api/groups/${this.props.match.params.id}`,
       method: 'GET'
     })
-      .then(res => this.setState({ group: res.data }))
+      .then(res => this.setState({ group: res.data, user: Auth.getCurrentUser() }))
       .catch(err => this.setState({ error: err.message }));
 
-    axios({
-      url: `/api/users/${Auth.getPayload().sub}`,
-      method: 'GET'
-    })
-      .then(res => this.setState({ user: res.data }))
-      .catch(err => this.setState({ error: err.message }));
-
-    axios({
-      url: `/api/groups/${this.props.match.params.id}/books`,
-      method: 'GET'
-    })
-      .then(res => this.setState({ images: res.data }));
   }
 
+  // deletes group
   handleDelete = () => {
     axios({
       url: `/api/groups/${this.props.match.params.id}`,
@@ -48,58 +37,63 @@ class GroupsShow extends React.Component {
       .then(() => this.props.history.push('/groups'));
   }
 
-
-  removeFromGroup = (group) => {
-    const index = this.state.user.groups.indexOf(group);
-    this.state.user.groups.splice(index, 1);
+  // removes user from group
+  leaveGroup = () => {
     axios({
-      method: 'PUT',
-      url: `/api/groups/${this.props.match.params.id}/users/delete`,
-      data: this.state.user
+      method: 'DELETE',
+      url: `/api/groups/${this.props.match.params.id}/members`,
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(() => this.props.history.push('/groups'));
+      .then(res => this.setState({ group: res.data }));
   }
-
-  addToUser(){
+  // adds user to group and group to user
+  joinGroup = () => {
     axios({
-      url: `/api/groups/${this.props.match.params.id}/users`,
-      method: 'PUT',
-      data: this.state.user,
+      url: `/api/groups/${this.props.match.params.id}/members`,
+      method: 'POST',
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
-    });
-  }
-
-  addToGroup = (e) => {
-    e.preventDefault();
-    this.addToUser();
-    axios({
-      url: `/api/users/${Auth.getPayload().sub}/groups`,
-      method: 'PUT',
-      data: this.state.group,
-      headers: { Authorization: `Bearer ${Auth.getToken()}`}
-    });
-    // .then(res => this.setState({ groups: res.data }))
-    // .then(() => this.props.history.push('/groups'));
+    })
+      .then(res => this.setState({ group: res.data }));
   }
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value }, () => console.log(this.state));
+    if(name === 'image') {
+      return axios({
+        url: '/api/vision',
+        method: 'POST',
+        data: { image: value }
+      })
+        .then(res => {
+          const books = this.state.group.books.slice();
+          if(books.length) {
+            books[books.length-1] = { image: value, url: res.data[0].url };
+          } else {
+            books.push({ image: value, url: res.data[0].url });
+          }
+          const group = { ...this.state.group, books };
+          this.setState({ group });
+        });
+    }
+    this.setState({ [name]: value });
   }
 
   // makes the request to the back end which then makes a proxy request to vision api
   handleSubmit = (e) => {
     e.preventDefault();
+
     axios({
-      url: '/api/vision',
-      method: 'POST',
-      data: this.state
+      url: `/api/groups/${this.props.match.params.id}`,
+      method: 'PUT',
+      data: this.state.group,
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(res => this.setState({ books: res.data}));
+      .then(res => this.setState({ group: res.data }));
   }
+
 
   render(){
     // console.log(this.state.group.members);
-    console.log(this.state.images);
+    console.log(this.state);
     return(
       <main>
         <section className="hero">
@@ -131,37 +125,35 @@ class GroupsShow extends React.Component {
               <button onClick={this.handleDelete}className="button">Delete</button>
             </div>
 
+            {/* displays group info */}
             <div className="column is-half-desktop">
               <div className="content">
                 <p>{this.state.group.info}</p>
                 <p>Members: {this.state.group.members.length}</p>
-                <button onClick={this.addToGroup} className="button">Join</button>
-                <button onClick={this.removeFromGroup} className="button">Leave Group</button>
+                <button onClick={this.joinGroup} className="button">Join Group</button>
+                <button onClick={this.leaveGroup} className="button">Leave Group</button>
               </div>
-              {this.state.books.map(book =>
-                <ul key={book._id}>
-                  <li key={book}>
-                    <a href={book.url} target="_blank" key={book.url}>{book.url}</a>
-                  </li>
-                </ul>
-              )}
             </div>
           </div>
 
           {/* form for inputting images which then makes call to api on submit */}
           <form onSubmit={this.handleSubmit}>
             <Base64 name="image" handleChange={this.handleChange} />
-            <button>Submit</button>
+            <button>Add to group</button>
           </form>
-          {this.state.images.map(image =>
-            <img key={image._id} className="image-book" src={`data:image/jpeg;base64, ${image.image}`} />
+
+          {this.state.group.books.map((book, i) =>
+            <a key={i} href={book.url} target="_blank">
+              <img className="image-book" src={book.image} />
+            </a>
           )}
+
           {/*  displays users who belong to a group */}
           <div className="column is-one-third-desktop">
             {this.state.group.members.map(member =>
               <div key={member._id} className="card">
                 <div key={member} className="card-image">
-                  <figure key={member._id} className="image is-4by4">
+                  <figure key={member.username} className="image is-4by4">
                     <img className="image" src={member.image} alt={member.username} />
                   </figure>
                   <div className="media">

@@ -3,7 +3,6 @@ const googleVision = require('../controllers/googleVision');
 const auth = require('../controllers/auth');
 const users = require('../controllers/users');
 const groups = require('../controllers/groups');
-const books = require('../controllers/books');
 const secureRoute = require('../lib/secureRoute');
 
 router.post('/vision', googleVision.getPhotoAnalysis);
@@ -13,9 +12,8 @@ router.route('/users/:id')
   .put(users.update)
   .delete(users.delete);
 
-router.put('/users/:id/groups', secureRoute, users.addToGroup);
-router.put('/groups/:id/users', secureRoute, groups.addToUser);
-router.put('/groups/:id/users/delete', groups.deleteFromUser);
+router.post('/groups/:id/members', secureRoute, groups.addUser);
+router.delete('/groups/:id/members', secureRoute, groups.removeUser);
 
 router.route('/groups')
   .get(groups.index)
@@ -25,10 +23,6 @@ router.route('/groups/:id')
   .get(groups.show)
   .put(secureRoute, groups.update)
   .delete(secureRoute, groups.delete);
-
-router.route('/groups/:id/books')
-  .get(books.index)
-  .post(books.create);
 
 router.post('/login', auth.login);
 

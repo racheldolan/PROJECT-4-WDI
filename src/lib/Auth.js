@@ -2,6 +2,7 @@ class Auth {
 
   static logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
   }
 
   static getToken(){
@@ -10,6 +11,14 @@ class Auth {
 
   static setToken(token){
     localStorage.setItem('token', token);
+  }
+
+  static setCurrentUser(user) {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+  }
+
+  static getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser'));
   }
 
   static getPayload() {

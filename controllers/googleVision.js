@@ -2,11 +2,10 @@ const { googleKey } = require('../config/environment');
 const rp = require('request-promise');
 
 function getPhotoAnalysis(req, res, next) {
-
   const request = {
     requests: [
       {
-        image: { content: req.body.image },
+        image: { content: req.body.image.replace(/^data:image\/.+;base64,/, '') },
         features: [{ type: 'WEB_DETECTION' }]
       }
     ]
