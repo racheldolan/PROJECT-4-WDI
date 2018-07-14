@@ -112,34 +112,25 @@ class GroupsShow extends React.Component {
 
 
 
-          <div className="groups-show-info">
-            <section className="container groups-show-container">
+        <div className="groups-show-info">
+          <section className="container groups-show-container">
             <div className="columns">
 
-            <div className="column is-two-thirds-desktop">
-              {/* <div className="card"> */}
-                {/* <div className="card-image"> */}
-                  {/* <figure className="image is-4by3"> */}
-                    <img className="image groups-show-image" src={this.state.group.image} alt={this.state.group.groupName} />
-                  {/* </figure> */}
-                {/* </div> */}
-              {/* </div> */}
-              <Link to={`/groups/${this.state.group._id}/edit`}>
-                <button>Edit</button>
-              </Link>
-              <button onClick={this.handleDelete}>Delete</button>
+              <div className="column is-two-thirds-desktop">
+                <img className="image groups-show-image" src={this.state.group.image} alt={this.state.group.groupName} />
+                <Link to={`/groups/${this.state.group._id}/edit`}>
+                  <button>Edit</button>
+                </Link>
+                <button onClick={this.handleDelete}>Delete</button>
 
-
-            {/* displays group info */}
-            {/* <div className="column is-half-desktop"> */}
-              <div className="content">
-                <p>{this.state.group.info}</p>
-                <p>Members: {this.state.group.members.length}</p>
-                <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>
-                <button onClick={this.leaveGroup} className="button groups-show-buttons">Leave Group</button>
-                  </div>
-              {/* </div> */}
-                  </div>
+                {/* displays group info */}
+                <div className="content">
+                  <p>{this.state.group.info}</p>
+                  <p>Members: {this.state.group.members.length}</p>
+                  <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>
+                  <button onClick={this.leaveGroup} className="button groups-show-buttons">Leave Group</button>
+                </div>
+              </div>
 
               <div className="column is-one-third-desktop is-half-mobile">
                 <div className="current-book">
@@ -150,47 +141,37 @@ class GroupsShow extends React.Component {
                       <img className="image-book" src={book.image} />
                     </a>
                   )}
-                    {/* form for inputting images which then makes call to api on submit */}
+                  {/* form for inputting images which then makes call to api on submit */}
                   <form onSubmit={this.handleSubmit}>
                     <Base64 name="image" handleChange={this.handleChange} />
                     <button>Add to group</button>
                   </form>
                 </div>
               </div>
+            </div>
 
 
-
-
-          </div>
-        {/* </div> */}
-
-
-
-
-
-
-          {/*  displays users who belong to a group */}
-          <div className="column is-one-fifth-desktop">
+            {/*  displays users who belong to a group */}
+            <div className="columns is-multiline">
             {this.state.group.members.map(member =>
-              <div key={member._id} className="card">
-                <div key={member} className="card-image">
-                  <figure key={member.username} className="image is-4by4">
-                    <img className="image" src={member.image} alt={member.username} />
-                  </figure>
-                  <div className="media">
+              <div key={member.email} className="column is-one-quarter-desktop">
+                <div key={member._id} className="card">
+                  <div key={member} className="card-image">
                     <Link to={`/users/${member._id}`}>
-                      <p>{member.username}</p>
-                    </Link>
+                    <figure key={member.username} className="image is-4by4">
+                      <img className="image" src={member.image} alt={member.username} />
+                    </figure>
+                      </Link>
+                    {/* <div className="media">
+                        <p>{member.username}</p>
+                    </div> */}
                   </div>
                 </div>
               </div>
-            )}
-
-
+              )}
+          </div>
+          </section>
         </div>
-  </section>
-
-</div>
       </main>
     );
   }

@@ -12,6 +12,31 @@ mongoose.connect(dbURI, (err, db) => {
       password: 'rachel',
       passwordConfirmation: 'rachel',
       admin: true
+    },{
+      username: 'Linda',
+      email: 'linda@linda.com',
+      password: 'linda',
+      passwordConfirmation: 'linda'
+    }, {
+      username: 'Tash',
+      email: 'tash@tash.com',
+      password: 'tash',
+      passwordConfirmation: 'tash'
+    }, {
+      username: 'Steve',
+      email: 'steve@steve.com',
+      password: 'steve',
+      passwordConfirmation: 'steve'
+    }, {
+      username: 'Antoni',
+      email: 'antoni@antoni.com',
+      password: 'antoni',
+      passwordConfirmation: 'antoni'
+    }, {
+      username: 'Bella',
+      email: 'bella@bella.com',
+      password: 'bella',
+      passwordConfirmation: 'bella'
     }])
       .then(users => {
         return Group.create([{
