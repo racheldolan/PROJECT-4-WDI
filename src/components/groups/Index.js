@@ -23,7 +23,19 @@ class GroupsIndex extends React.Component {
   render(){
     return(
       <section className="groups-index">
-        <div className="container">
+        <section className="hero">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">
+                Find your next group
+              </h1>
+              <h2 className="subtitle">
+                Hero subtitle
+              </h2>
+            </div>
+          </div>
+        </section>
+        <div className="container groups-list">
           <div className="notification">
             {this.state.groups.map(group =>
               <article key={group._id} className="media">
@@ -33,7 +45,7 @@ class GroupsIndex extends React.Component {
                   </p>
                 </figure>
                 <div className="media-content">
-                  <div className="content">
+                  <div className="content group-title">
                     <p>
                       <strong>{group.groupName}</strong>
                       <br />
@@ -47,7 +59,7 @@ class GroupsIndex extends React.Component {
                 </div>
                 <div className="media-right">
                   <Link to={`/groups/${group._id}`}>
-                    <button className="button">See More</button>
+                    <button className="button groups-index-button">See More</button>
                   </Link>
                 </div>
               </article>

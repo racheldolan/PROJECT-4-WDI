@@ -1,3 +1,18 @@
 .groups-index {
   font-family: $font-primary;
+  background-color: $color1;
+
+  .hero, .groups-index-button  {
+    background-color: $color1;
+    text-decoration: none;
+    font-family: $font-primary;
+  }
+}
+
+strong {
+  font-weight: 700;
+}
+
+.notification {
+  background-color: white;
 }
