@@ -149,8 +149,8 @@ class GroupsShow extends React.Component {
 
                   {this.state.group.creator && <Link to={`/users/${this.state.group.creator._id}`}> <p className="groups-show-creator">Created by <strong>{this.state.group.creator.username}</strong></p>
                   </Link>}
-                  <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>
-                  <button onClick={this.leaveGroup} className="button groups-show-buttons">Leave Group</button>
+                  {Auth.isAuthenticated() && <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>}
+                  {Auth.isAuthenticated() && <button onClick={this.leaveGroup} className="button groups-show-buttons">Leave Group</button>}
                 </div>
               </div>
 
@@ -166,7 +166,7 @@ class GroupsShow extends React.Component {
                   {/* form for inputting images which then makes call to api on submit */}
                   <form onSubmit={this.handleSubmit}>
                     <Base64 name="image" handleChange={this.handleChange} />
-                    <button>Add to group</button>
+                    {this.state.group.creator && <button>Add to group</button>}
                   </form>
                 </div>
               </div>

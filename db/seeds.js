@@ -11,32 +11,37 @@ mongoose.connect(dbURI, (err, db) => {
       email: 'rachel@rachel.com',
       password: 'rachel',
       passwordConfirmation: 'rachel',
-      admin: true
+      image: 'https://images.unsplash.com/photo-1507402086209-7bc75ccf5369?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=76da8cd3566839e142eeace5c2823fb7&auto=format&fit=crop&w=1052&q=80'
     },{
       username: 'Linda',
       email: 'linda@linda.com',
       password: 'linda',
-      passwordConfirmation: 'linda'
+      passwordConfirmation: 'linda',
+      image: 'https://images.unsplash.com/photo-1479088360436-ef9dbade3214?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d91c220ba53572fb8fd6bbdce6091afd&auto=format&fit=crop&w=1050&q=80'
     }, {
       username: 'Tash',
       email: 'tash@tash.com',
       password: 'tash',
-      passwordConfirmation: 'tash'
+      passwordConfirmation: 'tash',
+      image: 'https://images.unsplash.com/photo-1484399172022-72a90b12e3c1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=164d6f8e945f1b5012d4da77cc864586&auto=format&fit=crop&w=1050&q=80'
     }, {
       username: 'Steve',
       email: 'steve@steve.com',
       password: 'steve',
-      passwordConfirmation: 'steve'
+      passwordConfirmation: 'steve',
+      image: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a723711f2c79ac1dc3c8718d82850f30&auto=format&fit=crop&w=1031&q=80'
     }, {
       username: 'Antoni',
       email: 'antoni@antoni.com',
       password: 'antoni',
-      passwordConfirmation: 'antoni'
+      passwordConfirmation: 'antoni',
+      image: 'https://images.unsplash.com/photo-1491484925566-336b202157a5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e310d9d31bd5c72f6be9f0e153ee173d&auto=format&fit=crop&w=1050&q=80'
     }, {
       username: 'Bella',
       email: 'bella@bella.com',
       password: 'bella',
-      passwordConfirmation: 'bella'
+      passwordConfirmation: 'bella',
+      image: 'https://images.unsplash.com/photo-1492822497109-cda5caf66775?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4b779d15a0d449def011e32c1600e8d6&auto=format&fit=crop&w=1050&q=80'
     }])
       .then(users => {
         return Group.create([{

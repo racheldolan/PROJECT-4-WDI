@@ -6,7 +6,7 @@ const CommentForm = ({ commentCreate, handleCommentChange, data }) => {
       <article className="media">
         <figure className="media-left">
           <p className="image is-64x64">
-            <img src={data.user.image} />
+            {data.user && <img src={data.user.image} />}
           </p>
         </figure>
         <div className="media-content">
