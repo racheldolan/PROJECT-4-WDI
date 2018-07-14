@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Auth from '../../lib/Auth';
 import Base64  from '../common/Base64';
+import CommentForm  from './CommentForm';
 
 class GroupsShow extends React.Component {
 
@@ -12,7 +13,8 @@ class GroupsShow extends React.Component {
       user: {},
       group: {
         members: [],
-        books: []
+        books: [],
+        comments: []
       }
     };
   }
@@ -77,6 +79,7 @@ class GroupsShow extends React.Component {
     this.setState({ [name]: value });
   }
 
+
   // makes the request to the back end which then makes a proxy request to vision api
   handleSubmit = (e) => {
     e.preventDefault();
@@ -90,6 +93,24 @@ class GroupsShow extends React.Component {
       .then(res => this.setState({ group: res.data }));
   }
 
+  commentCreate = (e) => {
+    e.preventDefault();
+    axios({
+      url: `/api/groups/${this.props.match.params.id}/comments`,
+      method: 'POST',
+      data: { content: this.state.comment },
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
+    })
+      .then(res => this.setState({ group: res.data }));
+  }
+
+  // handleChange = ({ target: { name, value }}) => {
+  //   this.setState({ [name]: value });
+  // }
+
+  handleCommentChange = (e) => {
+    this.setState({ comment: e.target.value }, () => console.log(this.state));
+  }
 
   render(){
     // console.log(this.state.group.members);
@@ -153,23 +174,35 @@ class GroupsShow extends React.Component {
 
             {/*  displays users who belong to a group */}
             <div className="columns is-multiline">
-            {this.state.group.members.map(member =>
-              <div key={member.email} className="column is-one-quarter-desktop">
-                <div key={member._id} className="card">
-                  <div key={member} className="card-image">
-                    <Link to={`/users/${member._id}`}>
-                    <figure key={member.username} className="image is-4by4">
-                      <img className="image" src={member.image} alt={member.username} />
-                    </figure>
+              {this.state.group.members.map(member =>
+                <div key={member.email} className="column is-one-quarter-desktop">
+                  <div key={member._id} className="card">
+                    <div key={member} className="card-image">
+                      <Link to={`/users/${member._id}`}>
+                        <figure key={member.username} className="image is-4by4">
+                          <img className="image" src={member.image} alt={member.username} />
+                        </figure>
                       </Link>
-                    {/* <div className="media">
-                        <p>{member.username}</p>
-                    </div> */}
+                      {/* <div className="media">
+                          <p>{member.username}</p>
+                      </div> */}
+                    </div>
                   </div>
                 </div>
-              </div>
               )}
-          </div>
+
+              <CommentForm
+                handleCommentChange={this.handleCommentChange}
+                commentCreate={this.commentCreate}
+                data={this.state} />
+
+              {this.state.group.comments.map((comment, i) =>
+                <div key={comment._id}>
+                  <p key={comment.author._id}>{comment.author.username}</p>
+                  <p key={i}>{comment.content}</p>
+                </div>
+              )}
+            </div>
           </section>
         </div>
       </main>

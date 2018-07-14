@@ -11,7 +11,8 @@ function showRoute(req, res, next) {
   Group
     .findById(req.params.id)
     .populate('members')
-    // .populate('books')
+    .populate('comments.author')
+    .populate('comments.content')
     .then(group => res.json(group))
     .catch(next);
 }
@@ -63,10 +64,12 @@ function removeUserRoute(req, res, next) {
 }
 
 function commentCreateRoute(req, res, next) {
+  // console.log(req.body);
   req.body.author = req.currentUser;
   Group
     .findById(req.params.id)
     .populate('comments.author')
+    // .populate('comments.content')
     .then(group => {
       group.comments.push(req.body);
       return group.save();
