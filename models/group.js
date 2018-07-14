@@ -6,8 +6,8 @@ const bookSchema = new mongoose.Schema({
 });
 
 const commentSchema = new mongoose.Schema({
-  content: { type: String, required: true },
-  author: { type: mongoose.Schema.ObjectId, ref: 'User' }
+  author: { type: mongoose.Schema.ObjectId, ref: 'User' },
+  content: { type: String, required: true }
 });
 
 const groupSchema = new mongoose.Schema({

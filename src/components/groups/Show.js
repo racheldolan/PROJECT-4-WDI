@@ -14,7 +14,8 @@ class GroupsShow extends React.Component {
       group: {
         members: [],
         books: [],
-        comments: []
+        comments: [],
+        creator: {}
       }
     };
   }
@@ -113,8 +114,6 @@ class GroupsShow extends React.Component {
   }
 
   render(){
-    // console.log(this.state.group.members);
-    console.log(this.state);
     return(
       <main className="groups-show">
         <section className="hero groups-show-hero">
@@ -124,9 +123,6 @@ class GroupsShow extends React.Component {
                 {this.state.group.groupName}
               </h1>
               {/* displays books urls currently - needs to move */}
-              <h2 className="subtitle">
-                Hero subtitle
-              </h2>
             </div>
           </div>
         </section>
@@ -148,6 +144,7 @@ class GroupsShow extends React.Component {
                 <div className="content">
                   <p>{this.state.group.info}</p>
                   <p>Members: {this.state.group.members.length}</p>
+                  {this.state.group.creator && <p>Created by {this.state.group.creator.username}</p>}
                   <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>
                   <button onClick={this.leaveGroup} className="button groups-show-buttons">Leave Group</button>
                 </div>

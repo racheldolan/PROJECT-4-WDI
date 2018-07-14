@@ -13,7 +13,7 @@ class GroupsNew extends React.Component {
   }
 
   handleChange = ({ target: { name, value }}) => {
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => console.log(this.state));
   }
 
   handleSubmit = (e) => {
@@ -30,6 +30,7 @@ class GroupsNew extends React.Component {
   }
 
   render(){
+    console.log(this.state);
     return(
       <section className="container">
         <GroupsForm

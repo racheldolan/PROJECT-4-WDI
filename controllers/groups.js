@@ -13,11 +13,14 @@ function showRoute(req, res, next) {
     .populate('members')
     .populate('comments.author')
     .populate('comments.content')
+    .populate('creator')
     .then(group => res.json(group))
     .catch(next);
 }
 
 function createRoute(req, res, next) {
+  req.body.creator = req.currentUser;
+  console.log(req.body.creator);
   Group
     .create(req.body)
     .then(group => res.status(201).json(group))
