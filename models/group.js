@@ -5,6 +5,11 @@ const bookSchema = new mongoose.Schema({
   url: String
 });
 
+const commentSchema = new mongoose.Schema({
+  content: { type: String, required: true },
+  author: { type: mongoose.Schema.ObjectId, ref: 'User', required: true }
+});
+
 const groupSchema = new mongoose.Schema({
   groupName: { type: String, required: 'this field is required' },
   image: { type: String, default: 'http://scholastic.ugc.bazaarvoice.com/stories/7695-en_us/static/photoPlaceholder.gif'},
@@ -13,7 +18,8 @@ const groupSchema = new mongoose.Schema({
   members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   // currentBook: { type: String },
   books: [ bookSchema ],
-  creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  comments: [ commentSchema ]
 });
 
 module.exports = mongoose.model('Group', groupSchema);

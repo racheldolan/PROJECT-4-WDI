@@ -15,6 +15,8 @@ router.route('/users/:id')
 router.post('/groups/:id/members', secureRoute, groups.addUser);
 router.delete('/groups/:id/members', secureRoute, groups.removeUser);
 
+router.post('/groups/:id/comments', secureRoute, groups.commentCreate);
+
 router.route('/groups')
   .get(groups.index)
   .post(secureRoute, groups.create);

@@ -62,6 +62,19 @@ function removeUserRoute(req, res, next) {
     .catch(next);
 }
 
+function commentCreateRoute(req, res, next) {
+  req.body.author = req.currentUser;
+  Group
+    .findById(req.params.id)
+    .populate('comments.author')
+    .then(group => {
+      group.comments.push(req.body);
+      return group.save();
+    })
+    .then(group => res.json(group))
+    .catch(next);
+}
+
 module.exports = {
   index: indexRoute,
   show: showRoute,
@@ -69,5 +82,6 @@ module.exports = {
   update: updateRoute,
   delete: deleteRoute,
   addUser: addUserRoute,
-  removeUser: removeUserRoute
+  removeUser: removeUserRoute,
+  commentCreate: commentCreateRoute
 };
