@@ -29,7 +29,7 @@ class Navbar extends React.Component {
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <Link to="/" className="navbar-item">
-            <img src="" height="50" />
+            <img src="../../assets/images/logo.png"  />
           </Link>
 
           <a role="button"

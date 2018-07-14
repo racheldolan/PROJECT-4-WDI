@@ -1,8 +1,15 @@
-.user-show{
-  width: 100%;
-}
+@import '~bulma';
+@import 'helpers/variables';
 
-.image-book {
-  max-width: 200px;
-  max-height: 200px;
-}
+@import 'components/home';
+@import 'components/login';
+@import 'components/register';
+@import 'components/userShow';
+@import 'components/userEdit';
+@import 'components/groupsIndex';
+@import 'components/groupsShow';
+@import 'components/groupsEdit';
+@import 'components/groupsNew';
+
+
+@import 'partials/navbar';

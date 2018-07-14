@@ -15,6 +15,7 @@ import GroupsEdit from './components/groups/Edit';
 import UserShow from './components/users/Show';
 import UserEdit from './components/users/Edit';
 import Navbar from './components/common/Navbar';
+import Home from './pages/Home';
 
 
 class App extends React.Component {
@@ -33,6 +34,7 @@ class App extends React.Component {
             <Route path="/groups" component={GroupsIndex} />
             <ProtectedRoute path="/users/:id/edit" component={UserEdit} />
             <ProtectedRoute path="/users/:id" component={UserShow} />
+            <Route path="/" component={Home} />
           </Switch>
         </main>
       </BrowserRouter>

@@ -51,17 +51,6 @@ function addUserRoute(req, res, next) {
     .catch(next);
 }
 
-// function addBookToGroupRoute(req, res, next) {
-//   Group
-//     .findById(req.params.id)
-//     .then(group => {
-//       group.books.push(req.body);
-//       group.save();
-//     })
-//     .then(group => res.json(group))
-//     .catch(next);
-// }
-
 function removeUserRoute(req, res, next) {
   Group.findById(req.params.id)
     .then(group => {

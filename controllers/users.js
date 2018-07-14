@@ -25,17 +25,6 @@ function deleteRoute(req, res, next) {
     .catch(next);
 }
 
-// function addToGroupRoute(req, res, next) {
-//   User
-//     .findById(req.currentUser._id)
-//     .then(user => {
-//       user.groups.push(req.body);
-//       user.save();
-//     })
-//     .then(user => res.json(user))
-//     .catch(next);
-// }
-
 function addToGroupRoute(req, res, next) {
   User.populate(req.currentUser._id, { path: 'groups' })
     .then(user => res.json(user))
