@@ -1,0 +1,8 @@
+.navbar{
+  background-color: rgba(235, 202, 188, 0.5);
+  font-family: $font-primary;
+
+  a.navbar-item:hover, .navbar-link:hover {
+    color: grey;
+  }
+}

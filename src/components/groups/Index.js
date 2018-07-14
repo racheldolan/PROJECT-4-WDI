@@ -22,7 +22,7 @@ class GroupsIndex extends React.Component {
 
   render(){
     return(
-      <section>
+      <section className="groups-index">
         <div className="container">
           <div className="notification">
             {this.state.groups.map(group =>
