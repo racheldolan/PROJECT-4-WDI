@@ -95,8 +95,8 @@ class GroupsShow extends React.Component {
     // console.log(this.state.group.members);
     console.log(this.state);
     return(
-      <main>
-        <section className="hero">
+      <main className="groups-show">
+        <section className="hero groups-show-hero">
           <div className="hero-body">
             <div className="container">
               <h1 className="title">
@@ -109,47 +109,68 @@ class GroupsShow extends React.Component {
             </div>
           </div>
         </section>
-        <section className="container">
-          <div className="columns">
-            <div className="column is-one-third-desktop">
-              <div className="card">
-                <div className="card-image">
-                  <figure className="image is-4by3">
-                    <img className="image" src={this.state.group.image} alt={this.state.group.groupName} />
-                  </figure>
-                </div>
-              </div>
+
+
+
+          <div className="groups-show-info">
+            <section className="container groups-show-container">
+            <div className="columns">
+
+            <div className="column is-two-thirds-desktop">
+              {/* <div className="card"> */}
+                {/* <div className="card-image"> */}
+                  {/* <figure className="image is-4by3"> */}
+                    <img className="image groups-show-image" src={this.state.group.image} alt={this.state.group.groupName} />
+                  {/* </figure> */}
+                {/* </div> */}
+              {/* </div> */}
               <Link to={`/groups/${this.state.group._id}/edit`}>
-                <button className="button">Edit</button>
+                <button>Edit</button>
               </Link>
-              <button onClick={this.handleDelete}className="button">Delete</button>
-            </div>
+              <button onClick={this.handleDelete}>Delete</button>
+
 
             {/* displays group info */}
-            <div className="column is-half-desktop">
+            {/* <div className="column is-half-desktop"> */}
               <div className="content">
                 <p>{this.state.group.info}</p>
                 <p>Members: {this.state.group.members.length}</p>
-                <button onClick={this.joinGroup} className="button">Join Group</button>
-                <button onClick={this.leaveGroup} className="button">Leave Group</button>
+                <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>
+                <button onClick={this.leaveGroup} className="button groups-show-buttons">Leave Group</button>
+                  </div>
+              {/* </div> */}
+                  </div>
+
+              <div className="column is-one-third-desktop is-half-mobile">
+                <div className="current-book">
+                  <h1 className="title">Current Book</h1>
+                  <h2 className="subtitle">Click for more info</h2>
+                  {this.state.group.books.map((book, i) =>
+                    <a key={i} href={book.url} target="_blank">
+                      <img className="image-book" src={book.image} />
+                    </a>
+                  )}
+                    {/* form for inputting images which then makes call to api on submit */}
+                  <form onSubmit={this.handleSubmit}>
+                    <Base64 name="image" handleChange={this.handleChange} />
+                    <button>Add to group</button>
+                  </form>
+                </div>
               </div>
-            </div>
+
+
+
+
           </div>
+        {/* </div> */}
 
-          {/* form for inputting images which then makes call to api on submit */}
-          <form onSubmit={this.handleSubmit}>
-            <Base64 name="image" handleChange={this.handleChange} />
-            <button>Add to group</button>
-          </form>
 
-          {this.state.group.books.map((book, i) =>
-            <a key={i} href={book.url} target="_blank">
-              <img className="image-book" src={book.image} />
-            </a>
-          )}
+
+
+
 
           {/*  displays users who belong to a group */}
-          <div className="column is-one-third-desktop">
+          <div className="column is-one-fifth-desktop">
             {this.state.group.members.map(member =>
               <div key={member._id} className="card">
                 <div key={member} className="card-image">
@@ -164,8 +185,12 @@ class GroupsShow extends React.Component {
                 </div>
               </div>
             )}
-          </div>
-        </section>
+
+
+        </div>
+  </section>
+
+</div>
       </main>
     );
   }
