@@ -142,9 +142,13 @@ class GroupsShow extends React.Component {
 
                 {/* displays group info */}
                 <div className="content">
+
                   <p>{this.state.group.info}</p>
-                  <p>Members: {this.state.group.members.length}</p>
-                  {this.state.group.creator && <p>Created by {this.state.group.creator.username}</p>}
+
+                  <p>Members:  {this.state.group.members.length}</p>
+
+                  {this.state.group.creator && <Link to={`/users/${this.state.group.creator._id}`}> <p className="groups-show-creator">Created by <strong>{this.state.group.creator.username}</strong></p>
+                  </Link>}
                   <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>
                   <button onClick={this.leaveGroup} className="button groups-show-buttons">Leave Group</button>
                 </div>

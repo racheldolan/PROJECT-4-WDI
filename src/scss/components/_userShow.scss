@@ -1,3 +1,17 @@
-.user-show{
+.user-show {
   width: 100%;
+  font-family: $font-primary;
+}
+
+.users-show-info {
+  border: 5px solid $primary;
+  margin-bottom: 20px;
+  text-align: center;
+  background-color: $primary;
+}
+
+.users-show-buttons {
+  font-family: $font-primary;
+  background-color: $primary;
+  margin: 20px 0px 20px 20px;
 }
