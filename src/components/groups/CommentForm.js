@@ -1,12 +1,12 @@
 import React from 'react';
 
-const CommentForm = ({ commentCreate, handleCommentChange }) => {
+const CommentForm = ({ commentCreate, handleCommentChange, data }) => {
   return(
     <form onSubmit={commentCreate}>
       <article className="media">
         <figure className="media-left">
           <p className="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/128x128.png" />
+            <img src={data.user.image} />
           </p>
         </figure>
         <div className="media-content">
