@@ -114,6 +114,7 @@ class GroupsShow extends React.Component {
   }
 
   render(){
+
     return(
       <main className="groups-show">
         <section className="hero groups-show-hero">
