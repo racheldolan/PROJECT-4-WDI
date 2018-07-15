@@ -1,8 +1,9 @@
 .navbar{
-  background-color: $color2;
+  background-color: $primary;
   font-family: $font-primary;
 
   a.navbar-item:hover, .navbar-link:hover {
-    color: grey;
+    color: white;
+    background-color: $tertiary;
   }
 }

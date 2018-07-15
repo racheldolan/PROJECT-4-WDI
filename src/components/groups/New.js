@@ -32,7 +32,7 @@ class GroupsNew extends React.Component {
   render(){
     console.log(this.state);
     return(
-      <section className="container">
+      <section>
         <GroupsForm
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}

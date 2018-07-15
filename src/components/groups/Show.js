@@ -105,9 +105,9 @@ class GroupsShow extends React.Component {
       .then(res => this.setState({ group: res.data }));
   }
 
-  // handleChange = ({ target: { name, value }}) => {
-  //   this.setState({ [name]: value });
-  // }
+  handleDateChange = ({ target: { name, value }}) => {
+    this.setState({ [name]: value });
+  }
 
   handleCommentChange = (e) => {
     this.setState({ comment: e.target.value }, () => console.log(this.state));
@@ -136,11 +136,12 @@ class GroupsShow extends React.Component {
 
               <div className="column is-two-thirds-desktop">
                 <img className="image groups-show-image" src={this.state.group.image} alt={this.state.group.groupName} />
-                <Link to={`/groups/${this.state.group._id}/edit`}>
-                  <button>Edit</button>
-                </Link>
-                <button onClick={this.handleDelete}>Delete</button>
-
+                {this.state.user._id === this.state.group.creator._id && <div>
+                  <Link to={`/groups/${this.state.group._id}/edit`}>
+                    <button>Edit</button>
+                  </Link>
+                  <button onClick={this.handleDelete}>Delete</button>
+                </div>}
                 {/* displays group info */}
                 <div className="content">
 
@@ -153,7 +154,10 @@ class GroupsShow extends React.Component {
                   {Auth.isAuthenticated() && <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>}
                   {Auth.isAuthenticated() && <button onClick={this.leaveGroup} className="button groups-show-buttons">Leave Group</button>}
                 </div>
+                <hr />
               </div>
+
+
 
               <div className="column is-one-third-desktop is-half-mobile">
                 <div className="current-book">
@@ -162,13 +166,19 @@ class GroupsShow extends React.Component {
                   {this.state.group.books.map((book, i) =>
                     <a key={i} href={book.url} target="_blank">
                       <img className="image-book" src={book.image} />
+                      <p key={i}>{this.state.group.books.endDate}</p>
                     </a>
+
                   )}
+
+
                   {/* form for inputting images which then makes call to api on submit */}
-                  <form onSubmit={this.handleSubmit}>
+                  {this.state.user._id === this.state.group.creator._id && <form onSubmit={this.handleSubmit}>
                     <Base64 name="image" handleChange={this.handleChange} />
-                    {this.state.group.creator && <button>Add to group</button>}
-                  </form>
+                    <label className="label">End Date</label>
+                    <input className="input" type="date" name="endDate" placeholder="End Date" onChange={this.handleDateChange} />
+                    <button>Add to group</button>
+                  </form>}
                 </div>
               </div>
             </div>
@@ -182,12 +192,9 @@ class GroupsShow extends React.Component {
                     <div key={member} className="card-image">
                       <Link to={`/users/${member._id}`}>
                         <figure key={member.username} className="image is-4by4">
-                          <img className="image" src={member.image} alt={member.username} />
+                          <img className="image groups-show-image" src={member.image} alt={member.username} />
                         </figure>
                       </Link>
-                      {/* <div className="media">
-                          <p>{member.username}</p>
-                      </div> */}
                     </div>
                   </div>
                 </div>

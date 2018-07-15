@@ -1,0 +1,24 @@
+.login-image {
+  max-height: 600px;
+  border: 5px solid $primary;
+  margin-top: 50px;
+}
+
+.login {
+  border: 5px solid $primary;
+  max-width: 500px;
+  margin-top: 50px;
+  padding: 50px;
+  background-color: $primary;
+}
+
+.login-page {
+  background-color: $secondary;
+  font-family: $font-primary;
+  margin-top: 0.5px;
+}
+
+.login-button {
+  font-family: $font-primary;
+  background-color: $tertiary;
+}

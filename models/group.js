@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const bookSchema = new mongoose.Schema({
   image: String,
-  url: String
+  url: String,
+  startDate: { type: Date },
+  endDate: { type: Date }
 });
 
 const commentSchema = new mongoose.Schema({
@@ -21,5 +24,17 @@ const groupSchema = new mongoose.Schema({
   creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   comments: [ commentSchema ]
 });
+
+bookSchema.path('startDate')
+  .get(function formatDate(startDate){
+    return moment(startDate).format('YYYY-MM-DD');
+  });
+
+bookSchema.path('endDate')
+  .get(function formatDate(endDate){
+    return moment(endDate).format('YYYY-MM-DD');
+  });
+
+bookSchema.set('toJSON', { getters: true });
 
 module.exports = mongoose.model('Group', groupSchema);

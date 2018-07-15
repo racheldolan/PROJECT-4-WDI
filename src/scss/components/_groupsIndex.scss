@@ -1,12 +1,16 @@
 .groups-index {
   font-family: $font-primary;
-  background-color: $color1;
+  background-color: #D7D7D7;
 
-  .hero, .groups-index-button  {
-    background-color: $color1;
-    text-decoration: none;
-    font-family: $font-primary;
+  .hero  {
+    background-color: #D7D7D7;
   }
+}
+
+.groups-index-button  {
+  background-color: $primary;
+  text-decoration: none;
+  font-family: $font-primary;
 }
 
 strong {

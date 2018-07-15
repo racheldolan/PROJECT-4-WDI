@@ -6,9 +6,9 @@ const FlashMessages = () => {
   Flash.clearMessages();
 
   return (
-    <div className="container">
+    <div>
       {messages && Object.keys(messages).map(type =>
-        <div key={type} className={`notification is-${type}`}>{messages[type]}</div>
+        <div key={type} className={`notification is-${type} flash-message`}>{messages[type]}</div>
       )}
     </div>
   );
