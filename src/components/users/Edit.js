@@ -33,30 +33,36 @@ class UserEdit extends React.Component {
 
   render(){
     return(
-      <form onSubmit={this.handleSubmit}>
-        <div className="field">
-          <label className="username">Username</label>
-          <input className="input" type="username" name="username" placeholder="Username" onChange={this.handleChange}
-            value={this.state.username || ''} />
-        </div>
-        <div className="field">
-          <label className="email">Email</label>
-          <input className="input" name="email" placeholder="Email" onChange={this.handleChange}
-            value={this.state.email || ''} />
-        </div>
-        <div className="field">
-          <label className="image">Image</label>
-          <input className="input" name="image" placeholder="Image" onChange={this.handleChange}
-            value={this.state.image || ''}/>
-        </div>
-        <div className="field">
-          <label className="bio">Bio</label>
-          <textarea className="input" type="bio" name="bio" placeholder="Bio" onChange={this.handleChange}
-            value={this.state.bio || ''} />
-        </div>
+      <div className="columns form-page">
+        <div className="column">
+          <section className="container form-section">
+            <form onSubmit={this.handleSubmit}>
+              <div className="field">
+                <label className="username">Username</label>
+                <input className="input" type="username" name="username" placeholder="Username" onChange={this.handleChange}
+                  value={this.state.username || ''} />
+              </div>
+              <div className="field">
+                <label className="email">Email</label>
+                <input className="input" name="email" placeholder="Email" onChange={this.handleChange}
+                  value={this.state.email || ''} />
+              </div>
+              <div className="field">
+                <label className="image">Image</label>
+                <input className="input" name="image" placeholder="Image" onChange={this.handleChange}
+                  value={this.state.image || ''}/>
+              </div>
+              <div className="field">
+                <label className="bio">Bio</label>
+                <textarea className="input" type="bio" name="bio" placeholder="Bio" onChange={this.handleChange}
+                  value={this.state.bio || ''} />
+              </div>
 
-        <button className="button">Submit</button>
-      </form>
+              <button className="button">Submit</button>
+            </form>
+          </section>
+        </div>
+      </div>
     );
   }
 }
