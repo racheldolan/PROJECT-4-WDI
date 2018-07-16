@@ -121,7 +121,7 @@ class GroupsShow extends React.Component {
   // }
 
   render(){
-
+    console.log(this.state.group.creator);
     return(
       <main className="groups-show">
         <section className="hero groups-show-hero">

@@ -8,13 +8,13 @@ const CommentBox = ({ data }) => {
 
           <figure className="media-left">
             <div className="image is-64x64">
-              <img src={data.user.image} />
+              <img src={comment.author.image} />
             </div>
           </figure>
           <div className="media-content">
             <div className="content">
               <div>
-                <p><strong>{data.user.username}</strong></p>
+                <p><strong>{comment.author.username}</strong></p>
                 <br />
                 <p>{comment.content}</p>
               </div>

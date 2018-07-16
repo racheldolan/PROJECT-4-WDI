@@ -11,6 +11,8 @@ function showRoute(req, res, next) {
   Group
     .findById(req.params.id)
     .populate('comments.author')
+    .populate('members')
+    .populate('creator')
     .then(group => res.json(group))
     .catch(next);
 }
