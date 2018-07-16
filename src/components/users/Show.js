@@ -21,7 +21,7 @@ class UserShow extends React.Component {
       url: `/api/users/${this.props.match.params.id}`,
       method: 'GET'
     })
-      .then(res => this.setState({ user: res.data }, () => console.log(this.state)));
+      .then(res => this.setState({ user: res.data  }, () => console.log(this.state)));
   }
 
   handleDelete = () => {
@@ -72,9 +72,6 @@ class UserShow extends React.Component {
                 <div className="bio">
                   <p>{this.state.user.bio}</p>
                 </div>
-
-
-
 
               </div>
 

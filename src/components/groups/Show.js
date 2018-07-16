@@ -11,7 +11,7 @@ class GroupsShow extends React.Component {
   constructor(){
     super();
     this.state = {
-      user: Auth.getCurrentUser(),
+      user: {},
       group: {
         members: [],
         books: [],
@@ -27,7 +27,7 @@ class GroupsShow extends React.Component {
       url: `/api/groups/${this.props.match.params.id}`,
       method: 'GET'
     })
-      .then(res => this.setState({ group: res.data }))
+      .then(res => this.setState({ group: res.data, currentUser: Auth.getCurrentUser() }))
       .catch(err => this.setState({ error: err.message }));
 
   }
@@ -57,7 +57,7 @@ class GroupsShow extends React.Component {
       method: 'POST',
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(res => this.setState({ group: res.data }, () => console.log(this.state)));
+      .then(res => this.setState({ group: res.data }, console.log(this.state)));
   }
 
   // this.setState({ group: res.data }, console.log(this.state)
@@ -116,12 +116,21 @@ class GroupsShow extends React.Component {
     this.setState({ comment: e.target.value }, () => console.log(this.state));
   }
 
+  handleCommentDelete = () => {
+    axios({
+      url: `/api/groups/${this.props.match.params.id}/comments/${this.props.match.params.id}`,
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
+    })
+      .then(() => this.props.history.push(`/groups/${this.props.match.params.id}`));
+  }
+
   // function checkUserGroup () {
   // checks current user's id against array of members ids to see if they are in group, return true or false
   // }
 
   render(){
-    console.log(this.state.group.creator);
+    console.log(this.state);
     return(
       <main className="groups-show">
         <section className="hero groups-show-hero">
@@ -189,42 +198,36 @@ class GroupsShow extends React.Component {
                     <button>Add to group</button>
                   </form>}
                 </div>
-                <div className="comment-form">
-                <CommentForm
-                  handleCommentChange={this.handleCommentChange}
-                  commentCreate={this.commentCreate}
-                  data={this.state} />
-                </div>
               </div>
             </div>
 
 
             {/*  displays users who belong to a group */}
             <div className="columns is-multiline">
-                <div className="column is-half-desktop">
               {this.state.group.members.map((member, i) =>
-                <div key={i} className="column is-half">
+                <div key={i} className="column is-one-quarter-desktop">
                   <div className="card">
                     <div className="card-image">
                       <Link to={`/users/${member._id}`}>
-                      <figure className="image is-4by4">
-                        <img className="image groups-show-image" src={member.image} alt={member.username} />
-                      </figure>
-                    </Link>
+                        <figure className="image is-4by4">
+                          <img className="image groups-show-image" src={member.image} alt={member.username} />
+                        </figure>
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-              </div>
-
-
-
-
+              )}
               <div className="column">
-
+                <CommentForm
+                  handleCommentChange={this.handleCommentChange}
+                  commentCreate={this.commentCreate}
+                  data={this.state} />
 
                 <CommentBox
-                  data={this.state} />
+                  data={this.state}
+                  handleCommentDelete={this.handleCommentDelete}
+                />
+
               </div>
             </div>
           </section>

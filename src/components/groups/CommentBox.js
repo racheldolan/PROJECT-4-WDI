@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CommentBox = ({ data }) => {
+const CommentBox = ({ data, handleCommentDelete }) => {
   return(
     <section>
       {data.group.comments.map((comment, i) =>
@@ -21,7 +21,7 @@ const CommentBox = ({ data }) => {
             </div>
           </div>
           <div className="media-right">
-            <button className="delete"></button>
+            <button onClick={handleCommentDelete}className="delete"></button>
           </div>
         </article>
       )}

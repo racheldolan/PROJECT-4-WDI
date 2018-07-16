@@ -83,14 +83,15 @@ function commentCreateRoute(req, res, next) {
 }
 
 function commentDeleteRoute(req, res, next) {
-  Group
-    .findById(req.params.id)
+
+  Group.findById(req.params.id)
     .then(group => {
-      const comment = group.comments.id(req.params.commentId);
-      comment.remove();
+      const index = group.comments.indexOf(req.params.commentId);
+      group.comments.splice(index, 1);
       group.save();
       res.json(group);
     })
+    // .then(group => res.json(group))
     .catch(next);
 }
 
