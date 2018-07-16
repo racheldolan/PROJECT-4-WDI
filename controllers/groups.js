@@ -10,10 +10,7 @@ function indexRoute(req, res, next) {
 function showRoute(req, res, next) {
   Group
     .findById(req.params.id)
-    .populate('members')
     .populate('comments.author')
-    .populate('comments.content')
-    .populate('creator')
     .then(group => res.json(group))
     .catch(next);
 }
@@ -50,8 +47,9 @@ function addUserRoute(req, res, next) {
     .then(group => {
       group.members.push(req.currentUser);
       group.save();
+      res.json(group);
     })
-    .then(group => res.json(group))
+    // .then(group => res.json(group))
     .catch(next);
 }
 
@@ -61,23 +59,24 @@ function removeUserRoute(req, res, next) {
       const index = group.members.indexOf(req.currentUser._id);
       group.members.splice(index, 1);
       group.save();
+      res.json(group);
     })
-    .then(group => res.json(group))
+    // .then(group => res.json(group))
     .catch(next);
 }
 
 function commentCreateRoute(req, res, next) {
-  // console.log(req.body);
-  req.body.author = req.currentUser;
+  req.body.author = req.currentUser._id;
+  console.log(req.body);
   Group
     .findById(req.params.id)
-    .populate('comments.author')
+    // .populate('comments.author')
     // .populate('comments.content')
     .then(group => {
       group.comments.push(req.body);
-      return group.save();
+      group.save();
+      res.json(group);
     })
-    .then(group => res.json(group))
     .catch(next);
 }
 

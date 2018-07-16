@@ -17,7 +17,7 @@ userSchema.virtual('groups', {
   ref: 'Group'
 });
 
-userSchema.virtual('groups', {
+userSchema.virtual('somethingelse', {
   localField: '_id',
   foreignField: 'creator',
   ref: 'Group'

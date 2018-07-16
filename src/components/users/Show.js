@@ -9,7 +9,8 @@ class UserShow extends React.Component {
     super();
     this.state = {
       user: {
-        groups: []
+        groups: [
+        ]
       },
       currentUser: {}
     };
@@ -34,8 +35,8 @@ class UserShow extends React.Component {
 
 
   render(){
-    console.log(this.state.user);
-    console.log(this.state.currentUser);
+    console.log(this.state.user.groups);
+
     return(
       <main className="user-show">
         <section className="hero">
@@ -68,28 +69,29 @@ class UserShow extends React.Component {
                 <ul>
                   {this.state.user._id === this.state.currentUser._id && <li>You belong to {this.state.user.groups.length} group(s)!</li>}
                   {this.state.user._id !== this.state.currentUser._id && <li>{this.state.user.username} belongs to {this.state.user.groups.length} group(s)</li>}
-
-                  <a href="/groups">Browse groups</a>
-                  <li>{this.state.user.bio}</li>
                 </ul>
+
+                  <div className="bio">
+                    <p>{this.state.user.bio}</p>
+                  </div>
+
 
 
 
               </div>
 
-              <div className="columns">
-                {this.state.user.groups.map(group =>
-                  <div  key={group._id} className="column is-half-desktop is-half-mobile">
+              {/* <div className="columns"> */}
+                {this.state.user.groups.map((group, i) =>
+                  <div  key={group._id} className="column is-one-third-desktop is-half-mobile">
 
                     <div key={group._id}>
                       <div key={group._id} className="users-show-info">
 
 
-
                         <Link to={`/groups/${group._id}`}>
                           <img key={group._id} src={group.image} alt={group.groupName} />
                         </Link>
-                        <h2 className="subtitle" key={group._id}>{group.groupName}</h2>
+                        <h2 className="subtitle" key={i}>{group.groupName}</h2>
 
 
 
@@ -98,7 +100,7 @@ class UserShow extends React.Component {
                 </div>
               </div>
             )}
-          </div>
+          {/* </div> */}
           </div>
         </section>
 

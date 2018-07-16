@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import Auth from '../../lib/Auth';
 import Base64  from '../common/Base64';
 import CommentForm  from './CommentForm';
+import CommentBox  from './CommentBox';
 
 class GroupsShow extends React.Component {
 
   constructor(){
     super();
     this.state = {
-      user: {},
+      user: Auth.getCurrentUser(),
       group: {
         members: [],
         books: [],
@@ -26,7 +27,7 @@ class GroupsShow extends React.Component {
       url: `/api/groups/${this.props.match.params.id}`,
       method: 'GET'
     })
-      .then(res => this.setState({ group: res.data, user: Auth.getCurrentUser() }))
+      .then(res => this.setState({ group: res.data }))
       .catch(err => this.setState({ error: err.message }));
 
   }
@@ -56,8 +57,10 @@ class GroupsShow extends React.Component {
       method: 'POST',
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(res => this.setState({ group: res.data }));
+      .then(res => this.setState({ group: res.data }, () => console.log(this.state)));
   }
+
+  // this.setState({ group: res.data }, console.log(this.state)
 
   handleChange = ({ target: { name, value } }) => {
     if(name === 'image') {
@@ -113,6 +116,10 @@ class GroupsShow extends React.Component {
     this.setState({ comment: e.target.value }, () => console.log(this.state));
   }
 
+  // function checkUserGroup () {
+  // checks current user's id against array of members ids to see if they are in group, return true or false
+  // }
+
   render(){
 
     return(
@@ -149,6 +156,7 @@ class GroupsShow extends React.Component {
 
                   <p>Members:  {this.state.group.members.length}</p>
 
+
                   {this.state.group.creator && <Link to={`/users/${this.state.group.creator._id}`}> <p className="groups-show-creator">Created by <strong>{this.state.group.creator.username}</strong></p>
                   </Link>}
                   {Auth.isAuthenticated() && <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>}
@@ -166,13 +174,14 @@ class GroupsShow extends React.Component {
                   {this.state.group.books.map((book, i) =>
                     <a key={i} href={book.url} target="_blank">
                       <img className="image-book" src={book.image} />
-                      <p key={i}>{this.state.group.books.endDate}</p>
+                      <p>{this.state.group.books.endDate}</p>
                     </a>
 
                   )}
 
 
                   {/* form for inputting images which then makes call to api on submit */}
+                  {/*  THIS LINE IS BREAKING */}
                   {this.state.user._id === this.state.group.creator._id && <form onSubmit={this.handleSubmit}>
                     <Base64 name="image" handleChange={this.handleChange} />
                     <label className="label">End Date</label>
@@ -186,12 +195,12 @@ class GroupsShow extends React.Component {
 
             {/*  displays users who belong to a group */}
             <div className="columns is-multiline">
-              {this.state.group.members.map(member =>
-                <div key={member.email} className="column is-one-quarter-desktop">
-                  <div key={member._id} className="card">
-                    <div key={member} className="card-image">
+              {this.state.group.members.map((member, i) =>
+                <div key={i} className="column is-one-quarter-desktop">
+                  <div className="card">
+                    <div className="card-image">
                       <Link to={`/users/${member._id}`}>
-                        <figure key={member.username} className="image is-4by4">
+                        <figure className="image is-4by4">
                           <img className="image groups-show-image" src={member.image} alt={member.username} />
                         </figure>
                       </Link>
@@ -199,18 +208,16 @@ class GroupsShow extends React.Component {
                   </div>
                 </div>
               )}
+              <div className="column">
+                <CommentForm
+                  handleCommentChange={this.handleCommentChange}
+                  commentCreate={this.commentCreate}
+                  data={this.state} />
 
-              <CommentForm
-                handleCommentChange={this.handleCommentChange}
-                commentCreate={this.commentCreate}
-                data={this.state} />
+                <CommentBox
+                  data={this.state} />
 
-              {this.state.group.comments.map((comment, i) =>
-                <div key={comment._id}>
-                  <p key={comment.author._id}>{comment.author.username}</p>
-                  <p key={i}>{comment.content}</p>
-                </div>
-              )}
+              </div>
             </div>
           </section>
         </div>
