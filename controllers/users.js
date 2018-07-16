@@ -10,12 +10,12 @@ function showRoute(req, res, next){
 }
 
 function profileRoute(req, res, next) {
-  console.log(req.body);
+  console.log(req.currentUser);
   req.body = req.currentUser;
-  console.log(req.currentUser._id);
   User
     .findById(req.currentUser._id)
-    .then(user => res.json(user))
+    .populate('groups')
+    .then(currentUser => res.json(currentUser))
     .catch(next);
 }
 

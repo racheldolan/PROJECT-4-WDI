@@ -22,7 +22,7 @@ class Profile extends React.Component{
       url: '/api/profile',
       method: 'GET'
     })
-      .then(res => console.log(res.data));
+      .then(res => this.setState({ currentUser: res.data }, () => console.log(this.state)));
   }
 
     handleDelete = () => {

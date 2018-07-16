@@ -19,6 +19,7 @@ router.post('/groups/:id/members', secureRoute, groups.addUser);
 router.delete('/groups/:id/members', secureRoute, groups.removeUser);
 
 router.post('/groups/:id/comments', secureRoute, groups.commentCreate);
+router.delete('/groups/:id/comments/:commentId', secureRoute, groups.commentDelete);
 
 router.route('/groups')
   .get(groups.index)
