@@ -136,6 +136,10 @@ class GroupsShow extends React.Component {
     this.checkIfInGroup() ? this.leaveGroup() : this.joinGroup();
   }
 
+  handleSearch = (e) => {
+    this.setState({ search: e.target.value });
+  }
+
   render(){
 
     return(
@@ -151,6 +155,17 @@ class GroupsShow extends React.Component {
           </div>
         </section>
 
+        <div className="filters">
+          <input className="input" placeholder="Search" onChange={this.handleSearch}/>
+          <div className="control">
+            <div className="select is-fullwidth">
+              <select onChange={this.handleSort}>
+                <option value="name|asc">Name (A-Z)</option>
+                <option value="name|desc">Name (Z-A)</option>
+              </select>
+            </div>
+          </div>
+        </div>
 
         <div className="groups-show-info">
           <section className="container groups-show-container">
@@ -174,7 +189,6 @@ class GroupsShow extends React.Component {
 
                   {this.state.group.creator && <Link to={`/users/${this.state.group.creator._id}`}> <p className="groups-show-creator">Created by <strong>{this.state.group.creator.username}</strong></p>
                   </Link>}
-                  {/* {this.checkUserGroup() && <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>} */}
                   <button onClick={this.handleJoin} className="button groups-show-buttons">{this.checkIfInGroup() ? 'Leave Group' : 'Join Group'}</button>
                 </div>
                 <hr />
