@@ -20,6 +20,17 @@ class GroupsIndex extends React.Component {
       .then(res => this.setState({groups: res.data }));
   }
 
+  handleSearch = (e) => {
+    this.setState({ search: e.target.value });
+  }
+
+  filteredGroups = () => {
+    const re = new RegExp(this.state.search, 'i');
+    return this.state.groups.filter(group => {
+      return re.test(group.title);
+    });
+  }
+
   render(){
     return(
       <section className="groups-index">
@@ -35,6 +46,17 @@ class GroupsIndex extends React.Component {
             </div>
           </div>
         </section>
+        <div className="filters">
+          <input className="input" placeholder="Search" onChange={this.handleSearch}/>
+          <div className="control">
+            <div className="select is-fullwidth">
+              <select onChange={this.handleSort}>
+                <option value="name|asc">Name (A-Z)</option>
+                <option value="name|desc">Name (Z-A)</option>
+              </select>
+            </div>
+          </div>
+        </div>
         <div className="container groups-list">
           <div className="notification">
             {this.state.groups.map(group =>

@@ -136,9 +136,6 @@ class GroupsShow extends React.Component {
     this.checkIfInGroup() ? this.leaveGroup() : this.joinGroup();
   }
 
-  handleSearch = (e) => {
-    this.setState({ search: e.target.value });
-  }
 
   render(){
 
@@ -154,18 +151,6 @@ class GroupsShow extends React.Component {
             </div>
           </div>
         </section>
-
-        <div className="filters">
-          <input className="input" placeholder="Search" onChange={this.handleSearch}/>
-          <div className="control">
-            <div className="select is-fullwidth">
-              <select onChange={this.handleSort}>
-                <option value="name|asc">Name (A-Z)</option>
-                <option value="name|desc">Name (Z-A)</option>
-              </select>
-            </div>
-          </div>
-        </div>
 
         <div className="groups-show-info">
           <section className="container groups-show-container">
