@@ -7,12 +7,14 @@ const CommentBox = ({ data }) => {
         <article key={i} className="media">
 
           <figure className="media-left">
-            <img src={data.user.image} />
+            <div className="image is-64x64">
+              <img src={data.user.image} />
+            </div>
           </figure>
           <div className="media-content">
             <div className="content">
               <div>
-                <strong>{data.user.username}</strong>
+                <p><strong>{data.user.username}</strong></p>
                 <br />
                 <p>{comment.content}</p>
               </div>
