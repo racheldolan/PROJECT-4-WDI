@@ -23,14 +23,9 @@ class GroupsShow extends React.Component {
 
   // getting data from back end to display on page
   componentDidMount() {
-
-    axios({
-      url: `/api/groups/${this.props.match.params.id}`,
-      method: 'GET'
-    })
+    axios.get(`/api/groups/${this.props.match.params.id}`)
       .then(res => this.setState({ group: res.data, currentUser: Auth.getCurrentUser() }))
       .catch(err => this.setState({ error: err.message }));
-
   }
 
   // deletes group
