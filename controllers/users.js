@@ -9,6 +9,16 @@ function showRoute(req, res, next){
     .catch(next);
 }
 
+function profileRoute(req, res, next) {
+  console.log(req.body);
+  req.body = req.currentUser;
+  console.log(req.currentUser._id);
+  User
+    .findById(req.currentUser._id)
+    .then(user => res.json(user))
+    .catch(next);
+}
+
 function updateRoute(req, res, next) {
   User.findById(req.params.id)
     .then(user => Object.assign(user, req.body))
@@ -35,5 +45,6 @@ module.exports = {
   show: showRoute,
   update: updateRoute,
   delete: deleteRoute,
-  addToGroup: addToGroupRoute
+  addToGroup: addToGroupRoute,
+  profile: profileRoute
 };

@@ -189,34 +189,42 @@ class GroupsShow extends React.Component {
                     <button>Add to group</button>
                   </form>}
                 </div>
+                <div className="comment-form">
+                <CommentForm
+                  handleCommentChange={this.handleCommentChange}
+                  commentCreate={this.commentCreate}
+                  data={this.state} />
+                </div>
               </div>
             </div>
 
 
             {/*  displays users who belong to a group */}
             <div className="columns is-multiline">
+                <div className="column is-half-desktop">
               {this.state.group.members.map((member, i) =>
-                <div key={i} className="column is-one-quarter-desktop">
+                <div key={i} className="column is-half">
                   <div className="card">
                     <div className="card-image">
                       <Link to={`/users/${member._id}`}>
-                        <figure className="image is-4by4">
-                          <img className="image groups-show-image" src={member.image} alt={member.username} />
-                        </figure>
-                      </Link>
-                    </div>
+                      <figure className="image is-4by4">
+                        <img className="image groups-show-image" src={member.image} alt={member.username} />
+                      </figure>
+                    </Link>
                   </div>
                 </div>
-              )}
+              </div>
+            )}
+              </div>
+
+
+
+
               <div className="column">
-                <CommentForm
-                  handleCommentChange={this.handleCommentChange}
-                  commentCreate={this.commentCreate}
-                  data={this.state} />
+
 
                 <CommentBox
                   data={this.state} />
-
               </div>
             </div>
           </section>

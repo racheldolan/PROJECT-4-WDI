@@ -12,6 +12,9 @@ router.route('/users/:id')
   .put(users.update)
   .delete(users.delete);
 
+router.route('/profile')
+  .get(users.profile);
+
 router.post('/groups/:id/members', secureRoute, groups.addUser);
 router.delete('/groups/:id/members', secureRoute, groups.removeUser);
 

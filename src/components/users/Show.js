@@ -12,7 +12,7 @@ class UserShow extends React.Component {
         groups: [
         ]
       },
-      currentUser: {}
+      currentUser: Auth.getCurrentUser()
     };
   }
 
@@ -21,7 +21,7 @@ class UserShow extends React.Component {
       url: `/api/users/${this.props.match.params.id}`,
       method: 'GET'
     })
-      .then(res => this.setState({ user: res.data, currentUser: Auth.getCurrentUser() }));
+      .then(res => this.setState({ user: res.data }, () => console.log(this.state)));
   }
 
   handleDelete = () => {
@@ -33,9 +33,7 @@ class UserShow extends React.Component {
       .then(() => this.props.history.push('/'));
   }
 
-
   render(){
-    console.log(this.state.user.groups);
 
     return(
       <main className="user-show">
@@ -71,9 +69,9 @@ class UserShow extends React.Component {
                   {this.state.user._id !== this.state.currentUser._id && <li>{this.state.user.username} belongs to {this.state.user.groups.length} group(s)</li>}
                 </ul>
 
-                  <div className="bio">
-                    <p>{this.state.user.bio}</p>
-                  </div>
+                <div className="bio">
+                  <p>{this.state.user.bio}</p>
+                </div>
 
 
 
@@ -81,30 +79,23 @@ class UserShow extends React.Component {
               </div>
 
               {/* <div className="columns"> */}
-                {this.state.user.groups.map((group, i) =>
-                  <div  key={group._id} className="column is-one-third-desktop is-half-mobile">
-
-                    <div key={group._id}>
-                      <div key={group._id} className="users-show-info">
-
-
-                        <Link to={`/groups/${group._id}`}>
-                          <img key={group._id} src={group.image} alt={group.groupName} />
-                        </Link>
-                        <h2 className="subtitle" key={i}>{group.groupName}</h2>
-
-
-
-
+              {this.state.user.groups.map(group =>
+                <div  key={group._id} className="column is-one-third-desktop is-half-mobile">
+                  <div>
+                    <div className="users-show-info">
+                      <Link to={`/groups/${group._id}`}>
+                        <img src={group.image} alt={group.groupName} />
+                      </Link>
+                      <h2 className="subtitle">{group.groupName}</h2>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-          {/* </div> */}
-          </div>
-        </section>
+              )}
+              {/* </div> */}
+            </div>
+          </section>
 
-      </div>
+        </div>
       </main>
     );
   }
