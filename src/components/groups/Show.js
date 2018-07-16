@@ -135,7 +135,6 @@ class GroupsShow extends React.Component {
   }
 
 
-
   render(){
     this.checkUserGroup();
     return(
@@ -161,9 +160,9 @@ class GroupsShow extends React.Component {
                 <img className="image groups-show-image" src={this.state.group.image} alt={this.state.group.groupName} />
                 {Auth.getPayload().sub === this.state.group.creator._id && <div>
                   <Link to={`/groups/${this.state.group._id}/edit`}>
-                    <button>Edit</button>
+                    <button className="button groups-show-buttons">Edit</button>
                   </Link>
-                  <button onClick={this.handleDelete}>Delete</button>
+                  <button className="button groups-show-buttons" onClick={this.handleDelete}>Delete</button>
                 </div>}
                 {/* displays group info */}
                 <div className="content">
@@ -175,7 +174,7 @@ class GroupsShow extends React.Component {
 
                   {this.state.group.creator && <Link to={`/users/${this.state.group.creator._id}`}> <p className="groups-show-creator">Created by <strong>{this.state.group.creator.username}</strong></p>
                   </Link>}
-                  {Auth.isAuthenticated() && <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>}
+                  {!this.checkUserGroup() && <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>}
                   {this.checkUserGroup() && <button onClick={this.leaveGroup} className="button groups-show-buttons">Leave Group</button>}
                 </div>
                 <hr />
@@ -197,11 +196,10 @@ class GroupsShow extends React.Component {
 
 
                   {/* form for inputting images which then makes call to api on submit */}
-                  {/*  THIS LINE IS BREAKING */}
                   {Auth.getPayload().sub === this.state.group.creator._id && <form onSubmit={this.handleSubmit}>
                     <Base64 name="image" handleChange={this.handleChange} />
-                    <label className="label">End Date</label>
-                    <input className="input" type="date" name="endDate" placeholder="End Date" onChange={this.handleDateChange} />
+                    {/* <label className="label">End Date</label>
+                    <input className="input" type="date" name="endDate" placeholder="End Date" onChange={this.handleDateChange} /> */}
                     <button>Add to group</button>
                   </form>}
                 </div>
@@ -210,6 +208,7 @@ class GroupsShow extends React.Component {
 
 
             {/*  displays users who belong to a group */}
+            <h2 className="subtitle">Members</h2>
             <div className="columns is-multiline">
               {this.state.group.members.map((member, i) =>
                 <div key={i} className="column is-one-quarter-desktop">
