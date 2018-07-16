@@ -61,12 +61,11 @@ class Profile extends React.Component{
                   </div>
                   <hr />
                   <h1 className="title">My Groups:</h1>
-                  <h1 className="title">Groups:</h1>
                 </div>
 
                 <div className="column is-two-thirds-desktop">
                   <ul>
-                    <li>{this.state.user.username} belongs to {this.state.user.groups.length} group(s)</li>
+                    <li>You belong to {this.state.user.groups.length} group(s)</li>
                   </ul>
 
                   <div className="bio">

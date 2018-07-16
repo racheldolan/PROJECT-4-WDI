@@ -19,7 +19,6 @@ function showRoute(req, res, next) {
 
 function createRoute(req, res, next) {
   req.body.creator = req.currentUser;
-  console.log(req.body.creator);
   Group
     .create(req.body)
     .then(group => res.status(201).json(group))
@@ -69,11 +68,8 @@ function removeUserRoute(req, res, next) {
 
 function commentCreateRoute(req, res, next) {
   req.body.author = req.currentUser._id;
-  console.log(req.body);
   Group
     .findById(req.params.id)
-    // .populate('comments.author')
-    // .populate('comments.content')
     .then(group => {
       group.comments.push(req.body);
       group.save();
@@ -83,15 +79,14 @@ function commentCreateRoute(req, res, next) {
 }
 
 function commentDeleteRoute(req, res, next) {
-
-  Group.findById(req.params.id)
+  Group
+    .findById(req.params.id)
     .then(group => {
-      const index = group.comments.indexOf(req.params.commentId);
-      group.comments.splice(index, 1);
-      group.save();
-      res.json(group);
+      const comment = group.comments.id(req.params.commentId);
+      comment.remove();
+      return group.save();
     })
-    // .then(group => res.json(group))
+    .then(group => res.json(group))
     .catch(next);
 }
 

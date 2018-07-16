@@ -130,7 +130,6 @@ class GroupsShow extends React.Component {
   // }
 
   render(){
-    console.log(this.state);
     return(
       <main className="groups-show">
         <section className="hero groups-show-hero">
@@ -152,7 +151,7 @@ class GroupsShow extends React.Component {
 
               <div className="column is-two-thirds-desktop">
                 <img className="image groups-show-image" src={this.state.group.image} alt={this.state.group.groupName} />
-                {this.state.user._id === this.state.group.creator._id && <div>
+                {Auth.getPayload().sub === this.state.group.creator._id && <div>
                   <Link to={`/groups/${this.state.group._id}/edit`}>
                     <button>Edit</button>
                   </Link>
@@ -191,7 +190,7 @@ class GroupsShow extends React.Component {
 
                   {/* form for inputting images which then makes call to api on submit */}
                   {/*  THIS LINE IS BREAKING */}
-                  {this.state.user._id === this.state.group.creator._id && <form onSubmit={this.handleSubmit}>
+                  {Auth.getPayload().sub === this.state.group.creator._id && <form onSubmit={this.handleSubmit}>
                     <Base64 name="image" handleChange={this.handleChange} />
                     <label className="label">End Date</label>
                     <input className="input" type="date" name="endDate" placeholder="End Date" onChange={this.handleDateChange} />

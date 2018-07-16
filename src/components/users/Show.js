@@ -40,10 +40,7 @@ class UserShow extends React.Component {
         <section className="hero">
           <div className="hero-body">
             <div className="container">
-              {this.state.user._id === this.state.currentUser._id && <h1 className="title">
-                Hi  {this.state.user.username}
-              </h1>}
-              {this.state.user._id !== this.state.currentUser._id &&  <h1 className="title">{this.state.user.username}</h1>}
+              <h1 className="title">{this.state.user.username}</h1>
             </div>
           </div>
         </section>
@@ -52,21 +49,13 @@ class UserShow extends React.Component {
             <div className="columns is-multiline">
               <div className="column is-one-third-desktop">
                 <img src={this.state.user.image} alt={this.state.user.username} />
-                {this.state.user._id === this.state.currentUser._id &&  <div>
-                  <Link to={`/users/${Auth.getPayload().sub}/edit`}>
-                    <button className="button users-show-buttons">Edit</button>
-                  </Link>
-                  <button onClick={this.handleDelete} className="button users-show-buttons">Delete Account</button>
-                </div>}
                 <hr />
-                {this.state.user._id === this.state.currentUser._id && <h1 className="title">My Groups:</h1>}
-                {this.state.user._id !== this.state.currentUser._id && <h1 className="title">Groups:</h1>}
+                <h1 className="title">Groups:</h1>
               </div>
 
               <div className="column is-two-thirds-desktop">
                 <ul>
-                  {this.state.user._id === this.state.currentUser._id && <li>You belong to {this.state.user.groups.length} group(s)!</li>}
-                  {this.state.user._id !== this.state.currentUser._id && <li>{this.state.user.username} belongs to {this.state.user.groups.length} group(s)</li>}
+                  <li>{this.state.user.username} belongs to {this.state.user.groups.length} group(s)</li>
                 </ul>
 
                 <div className="bio">
