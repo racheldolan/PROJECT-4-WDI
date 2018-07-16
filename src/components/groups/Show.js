@@ -126,17 +126,18 @@ class GroupsShow extends React.Component {
       .then(() => this.props.history.push(`/groups/${this.props.match.params.id}`));
   }
 
-  checkUserGroup = () => {
-    let belongsToGroup;
-    for(let i = 0; i < this.state.group.members.length; i++) {
-      (this.state.group.members[i]._id === Auth.getPayload().sub) ? belongsToGroup = true : belongsToGroup = false;
-      console.log(belongsToGroup);
-    }
+  checkIfInGroup = () => {
+    const thisUser = Auth.getPayload().sub;
+    const members = this.state.group.members.map(member => member._id);
+    return members.includes(thisUser);
   }
 
+  handleJoin = () => {
+    this.checkIfInGroup() ? this.leaveGroup() : this.joinGroup();
+  }
 
   render(){
-    this.checkUserGroup();
+
     return(
       <main className="groups-show">
         <section className="hero groups-show-hero">
@@ -149,7 +150,6 @@ class GroupsShow extends React.Component {
             </div>
           </div>
         </section>
-
 
 
         <div className="groups-show-info">
@@ -174,8 +174,8 @@ class GroupsShow extends React.Component {
 
                   {this.state.group.creator && <Link to={`/users/${this.state.group.creator._id}`}> <p className="groups-show-creator">Created by <strong>{this.state.group.creator.username}</strong></p>
                   </Link>}
-                  {!this.checkUserGroup() && <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>}
-                  {this.checkUserGroup() && <button onClick={this.leaveGroup} className="button groups-show-buttons">Leave Group</button>}
+                  {/* {this.checkUserGroup() && <button onClick={this.joinGroup} className="button groups-show-buttons">Join Group</button>} */}
+                  <button onClick={this.handleJoin} className="button groups-show-buttons">{this.checkIfInGroup() ? 'Leave Group' : 'Join Group'}</button>
                 </div>
                 <hr />
               </div>
