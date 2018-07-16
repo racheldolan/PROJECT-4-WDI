@@ -13,10 +13,7 @@ class GroupsIndex extends React.Component {
 
 
   componentDidMount(){
-    axios({
-      url: '/api/groups',
-      method: 'GET'
-    })
+    axios.get('/api/groups')
       .then(res => this.setState({groups: res.data }));
   }
 
@@ -40,15 +37,13 @@ class GroupsIndex extends React.Component {
               <h1 className="title">
                 Find your next group
               </h1>
-              <h2 className="subtitle">
-                Hero subtitle
-              </h2>
+              <div className="filters">
+                <input className="input search-bar" placeholder="Search" onChange={this.handleSearch}/>
+              </div>
             </div>
           </div>
         </section>
-        <div className="filters">
-          <input className="input" placeholder="Search" onChange={this.handleSearch}/>
-        </div>
+
         <div className="container groups-list">
           <div className="notification">
             {this.filteredGroups().map(group =>
@@ -60,7 +55,7 @@ class GroupsIndex extends React.Component {
                 </figure>
                 <div className="media-content">
                   <div className="content group-title">
-                    <p>
+                    <p className="groupName">
                       <strong>{group.groupName}</strong>
                       <br />
                       {group.info}
