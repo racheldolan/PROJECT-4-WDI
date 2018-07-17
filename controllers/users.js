@@ -1,6 +1,5 @@
 const User = require('../models/user');
 
-
 function showRoute(req, res, next){
   User
     .findById(req.params.id)
@@ -26,21 +25,8 @@ function deleteRoute(req, res, next) {
     .catch(next);
 }
 
-function addToGroupRoute(req, res, next) {
-  User.populate(req.currentUser._id, { path: 'groups' })
-    .then(user => res.json(user))
-    .catch(next);
-}
-
-// function groupsCreated(req, res, next) {
-//   User.populate(req.currentUser._id, { path: 'groupsCreated' })
-//     .then(user => res.json(user))
-//     .catch(next);
-// }
-
 module.exports = {
   show: showRoute,
   update: updateRoute,
-  delete: deleteRoute,
-  addToGroup: addToGroupRoute
+  delete: deleteRoute
 };

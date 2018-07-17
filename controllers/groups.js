@@ -46,25 +46,25 @@ function addUserRoute(req, res, next) {
   Group
     .findById(req.params.id)
     .populate('members')
+    .populate('creator')
     .then(group => {
       group.members.push(req.currentUser);
       group.save();
       res.json(group);
     })
-    // .then(group => res.json(group))
     .catch(next);
 }
 
 function removeUserRoute(req, res, next) {
   Group.findById(req.params.id)
     .populate('members')
+    .populate('creator')
     .then(group => {
       const index = group.members.indexOf(req.currentUser._id);
       group.members.splice(index, 1);
       group.save();
       res.json(group);
     })
-    // .then(group => res.json(group))
     .catch(next);
 }
 
