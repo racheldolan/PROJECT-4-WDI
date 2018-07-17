@@ -64,7 +64,7 @@ class UserShow extends React.Component {
 
               </div>
 
-              {/* <div className="columns"> */}
+              <div className="columns">
               {this.state.user.groups.map(group =>
                 <div  key={group._id} className="column is-one-third-desktop is-half-mobile">
                   <div>
@@ -77,7 +77,7 @@ class UserShow extends React.Component {
                   </div>
                 </div>
               )}
-              {/* </div> */}
+              </div>
             </div>
           </section>
 
