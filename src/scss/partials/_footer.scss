@@ -1,9 +1,11 @@
 .footer {
-  max-height: 200px;
+  max-height: 250px;
   font-family: $font-primary;
   background-color: $primary;
+  position:fixed;
+  bottom: 0;
 }
 
-a {
-  text-decoration: none;
+a.name {
+  color: #363636;
 }

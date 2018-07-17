@@ -39,7 +39,6 @@ class App extends React.Component {
             <Route path="/" component={Home} />
             <Route component={NotFound} />
           </Switch>
-          <Footer></Footer>
         </main>
       </BrowserRouter>
     );

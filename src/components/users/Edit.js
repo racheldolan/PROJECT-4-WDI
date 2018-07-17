@@ -36,7 +36,7 @@ class UserEdit extends React.Component {
     console.log(this.state);
     return(
       <div className="columns form-page">
-        <div className="column">
+        <div className="column user-edit">
           <section className="container form-section">
             <form onSubmit={this.handleSubmit}>
               <div className="field">

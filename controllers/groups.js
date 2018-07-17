@@ -69,11 +69,12 @@ function removeUserRoute(req, res, next) {
 }
 
 function commentCreateRoute(req, res, next) {
-  req.body.author = req.currentUser._id;
+  req.body.author = req.currentUser;
   Group
     .findById(req.params.id)
-    .populate('comments.author')
     .populate('members')
+    .populate('creator')
+    .populate('comments.author')
     .then(group => {
       group.comments.push(req.body);
       group.save();
@@ -87,6 +88,7 @@ function commentDeleteRoute(req, res, next) {
     .findById(req.params.id)
     .populate('members')
     .populate('comments.author')
+    .populate('creator')
     .then(group => {
       const comment = group.comments.id(req.params.commentId);
       comment.remove();
