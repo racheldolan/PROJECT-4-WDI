@@ -47,6 +47,7 @@ function addUserRoute(req, res, next) {
     .findById(req.params.id)
     .populate('members')
     .populate('creator')
+    .populate('comments.author')
     .then(group => {
       group.members.push(req.currentUser);
       group.save();
@@ -59,6 +60,7 @@ function removeUserRoute(req, res, next) {
   Group.findById(req.params.id)
     .populate('members')
     .populate('creator')
+    .populate('comments.author')
     .then(group => {
       const index = group.members.indexOf(req.currentUser._id);
       group.members.splice(index, 1);

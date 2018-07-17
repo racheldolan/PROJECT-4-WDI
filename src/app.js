@@ -15,7 +15,6 @@ import GroupsEdit from './components/groups/Edit';
 import UserShow from './components/users/Show';
 import UserEdit from './components/users/Edit';
 import Navbar from './components/common/Navbar';
-import Footer from './components/common/Footer';
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
 
