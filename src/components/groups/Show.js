@@ -76,7 +76,6 @@ class GroupsShow extends React.Component {
     this.setState({ [name]: value });
   }
 
-
   // makes the request to the back end which then makes a proxy request to vision api
   handleSubmit = (e) => {
     e.preventDefault();
@@ -124,7 +123,6 @@ class GroupsShow extends React.Component {
     this.checkIfInGroup() ? this.leaveGroup() : this.joinGroup();
   }
 
-
   render(){
     console.log(this.state.currentUser);
     return(
@@ -157,7 +155,7 @@ class GroupsShow extends React.Component {
                   <p>{this.state.group.info}</p>
                   <p>Members:  {this.state.group.members.length}</p>
 
-                  {this.state.group.creator && <Link to={`/users/${this.state.group.creator._id}`}> <p className="groups-show-creator">Created by <strong>{this.state.group.creator.username}</strong></p>
+                  {this.state.group.creator && <Link to={`/users/${this.state.group.creator._id}`}><p className="groups-show-creator">Created by <strong>{this.state.group.creator.username}</strong></p>
                   </Link>}
                   <button onClick={this.handleJoin} className="button groups-show-buttons">{this.checkIfInGroup() ? 'Leave Group' : 'Join Group'}</button>
                 </div>

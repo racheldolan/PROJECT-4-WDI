@@ -5,6 +5,7 @@ function showRoute(req, res, next){
   User
     .findById(req.params.id)
     .populate('groups')
+    .populate('groupsCreated')
     .then(user => res.json(user))
     .catch(next);
 }

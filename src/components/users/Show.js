@@ -44,7 +44,7 @@ class UserShow extends React.Component {
   }
 
   render(){
-    console.log(this.state);
+    console.log(this.state.user.groupsCreated);
     return(
       <main className="user-show">
         <section className="hero">
@@ -82,7 +82,6 @@ class UserShow extends React.Component {
                 <div className="bio">
                   <p>{this.state.user.bio}</p>
                 </div>
-
               </div>
 
 
@@ -94,6 +93,20 @@ class UserShow extends React.Component {
                         <img src={group.image} alt={group.groupName} />
                       </Link>
                       <h2 className="subtitle">{group.groupName}</h2>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {this.state.user.groupsCreated && this.state.user.groupsCreated.map(group =>
+                <div  key={group._id} className="column is-one-third-desktop is-half-tablet is-mobile">
+                  <div>
+                    <div className="users-show-info">
+                      <Link to={`/groups/${group._id}`}>
+                        <img src={group.image} alt={group.groupName} />
+                      </Link>
+                      <h2 className="subtitle">{group.groupName}</h2>
+                      <h2 className="subtitle"><strong>Creator</strong></h2>
                     </div>
                   </div>
                 </div>
