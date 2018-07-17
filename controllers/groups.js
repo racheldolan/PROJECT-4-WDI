@@ -73,7 +73,6 @@ function commentCreateRoute(req, res, next) {
   Group
     .findById(req.params.id)
     .populate('comments.author')
-    .populate('comments.author.image')
     .populate('members')
     .then(group => {
       group.comments.push(req.body);

@@ -82,7 +82,7 @@ mongoose.connect(dbURI, (err, db) => {
           creator: users[0]
         },{
           groupName: 'Our Classical Journey',
-          image: 'https://images.gr-assets.com/groups/1510113522p8/346580.jpg',
+          image: 'http://libertyclassicalacademy.org/wp-content/uploads/2015/03/photo_32385_20140629-1024x741.jpg',
           info: 'As a group we will read and discuss classics from authors who have penned some of the greatest literature of all time! And as you travel along you too may be inspired to pick up your quill, dip it into the ink and write the next great novel!',
           members: users[4],
           creator: users[5]

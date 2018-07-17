@@ -101,10 +101,6 @@ class GroupsShow extends React.Component {
       .then(res => this.setState({ group: res.data }));
   }
 
-  handleDateChange = ({ target: { name, value }}) => {
-    this.setState({ [name]: value });
-  }
-
   handleCommentChange = (e) => {
     this.setState({ comment: e.target.value }, () => console.log(this.state));
   }

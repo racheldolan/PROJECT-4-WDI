@@ -26,7 +26,6 @@ class UserShow extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log(props);
     axios({
       url: `/api/users/${props.match.params.id}`,
       method: 'GET',
@@ -56,6 +55,7 @@ class UserShow extends React.Component {
             </div>
           </div>
         </section>
+
         <div className="groups-show-info">
           <section className="container groups-show-container">
             <div className="columns is-multiline">
@@ -72,7 +72,7 @@ class UserShow extends React.Component {
                 {Auth.getPayload().sub !== this.state.user._id && <h1 className="title">Groups:</h1>}
               </div>
 
-              <div className="column is-two-thirds-desktop">
+              <div className="column is-two-thirds-desktop is-half-tablet is-mobile">
                 <ul>
                   {Auth.getPayload().sub !== this.state.user._id && <li>{this.state.user.username} belongs to {this.state.user.groups.length} group(s)</li>}
                   {Auth.getPayload().sub === this.state.user._id && <li>You belong to {this.state.user.groups.length} group(s)</li>}
@@ -87,7 +87,7 @@ class UserShow extends React.Component {
 
 
               {this.state.user.groups.map(group =>
-                <div  key={group._id} className="column is-4 is-mobile">
+                <div  key={group._id} className="column is-one-third-desktop is-half-tablet is-mobile">
                   <div>
                     <div className="users-show-info">
                       <Link to={`/groups/${group._id}`}>
