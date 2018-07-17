@@ -12,7 +12,6 @@ import GroupsIndex from './components/groups/Index';
 import GroupsShow from './components/groups/Show';
 import GroupsNew from './components/groups/New';
 import GroupsEdit from './components/groups/Edit';
-import Profile from './components/users/Profile';
 import UserShow from './components/users/Show';
 import UserEdit from './components/users/Edit';
 import Navbar from './components/common/Navbar';
@@ -30,7 +29,6 @@ class App extends React.Component {
           <Switch>
             <Route path="/register" component={AuthRegister} />
             <Route path="/login" component={AuthLogin} />
-            <ProtectedRoute path="/profile" component={Profile} />
             <ProtectedRoute path="/groups/new" component={GroupsNew} />
             <ProtectedRoute path="/groups/:id/edit" component={GroupsEdit} />
             <ProtectedRoute path="/groups/:id" component={GroupsShow} />

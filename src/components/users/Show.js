@@ -22,7 +22,17 @@ class UserShow extends React.Component {
       method: 'GET',
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(res => this.setState({ user: res.data  }, () => console.log(this.state)));
+      .then(res => this.setState({ user: res.data  }));
+  }
+
+  componentWillReceiveProps(props) {
+    console.log(props);
+    axios({
+      url: `/api/users/${props.match.params.id}`,
+      method: 'GET',
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
+    })
+      .then(res => this.setState({ user: res.data  }));
   }
 
   handleDelete = () => {
@@ -35,13 +45,14 @@ class UserShow extends React.Component {
   }
 
   render(){
-
+    console.log(this.state);
     return(
       <main className="user-show">
         <section className="hero">
           <div className="hero-body">
             <div className="container">
-              <h1 className="title">{this.state.user.username}</h1>
+              {Auth.getPayload().sub !== this.state.user._id && <h1 className="title">{this.state.user.username}</h1>}
+              {Auth.getPayload().sub === this.state.user._id && <h1 className="title">Hi  {this.state.user.username}</h1>}
             </div>
           </div>
         </section>
@@ -50,13 +61,21 @@ class UserShow extends React.Component {
             <div className="columns is-multiline">
               <div className="column is-one-third-desktop">
                 <img className="user-show-image" src={this.state.user.image} alt={this.state.user.username} />
+                {Auth.getPayload().sub === this.state.user._id && <div>
+                  <Link to={`/users/${Auth.getPayload().sub}/edit`}>
+                    <button className="button users-show-buttons">Edit</button>
+                  </Link>
+                  <button onClick={this.handleDelete} className="button users-show-buttons">Delete Account</button>
+                </div>}
                 <hr />
-                <h1 className="title">Groups:</h1>
+                {Auth.getPayload().sub === this.state.user._id && <h1 className="title">My Groups:</h1>}
+                {Auth.getPayload().sub !== this.state.user._id && <h1 className="title">Groups:</h1>}
               </div>
 
               <div className="column is-two-thirds-desktop">
                 <ul>
-                  <li>{this.state.user.username} belongs to {this.state.user.groups.length} group(s)</li>
+                  {Auth.getPayload().sub !== this.state.user._id && <li>{this.state.user.username} belongs to {this.state.user.groups.length} group(s)</li>}
+                  {Auth.getPayload().sub === this.state.user._id && <li>You belong to {this.state.user.groups.length} group(s)</li>}
                   <li>Based in {this.state.user.location}</li>
                 </ul>
 
