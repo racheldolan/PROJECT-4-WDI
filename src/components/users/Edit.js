@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-// import Auth from '../../lib/Auth';
+import Auth from '../../lib/Auth';
 
 class UserEdit extends React.Component {
 
@@ -10,7 +10,8 @@ class UserEdit extends React.Component {
   componentDidMount(){
     axios({
       url: `/api/users/${this.props.match.params.id}`,
-      method: 'GET'
+      method: 'GET',
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(res => {
         this.setState(res.data);
@@ -32,6 +33,7 @@ class UserEdit extends React.Component {
   }
 
   render(){
+    console.log(this.state);
     return(
       <div className="columns form-page">
         <div className="column">
