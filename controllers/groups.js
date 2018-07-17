@@ -45,6 +45,7 @@ function deleteRoute(req, res, next) {
 function addUserRoute(req, res, next) {
   Group
     .findById(req.params.id)
+    .populate('members')
     .then(group => {
       group.members.push(req.currentUser);
       group.save();
@@ -56,6 +57,7 @@ function addUserRoute(req, res, next) {
 
 function removeUserRoute(req, res, next) {
   Group.findById(req.params.id)
+    .populate('members')
     .then(group => {
       const index = group.members.indexOf(req.currentUser._id);
       group.members.splice(index, 1);
