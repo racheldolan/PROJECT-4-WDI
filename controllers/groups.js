@@ -72,6 +72,9 @@ function commentCreateRoute(req, res, next) {
   req.body.author = req.currentUser._id;
   Group
     .findById(req.params.id)
+    .populate('comments.author')
+    .populate('comments.author.image')
+    .populate('members')
     .then(group => {
       group.comments.push(req.body);
       group.save();

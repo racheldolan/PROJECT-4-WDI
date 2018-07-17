@@ -21,7 +21,7 @@ const CommentBox = ({ data, handleCommentDelete }) => {
             </div>
           </div>
           <div className="media-right">
-            <button onClick={handleCommentDelete}className="delete"></button>
+            <button onClick={() => handleCommentDelete(comment._id)} className="delete"></button>
           </div>
         </article>
       )}

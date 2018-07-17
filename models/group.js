@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
+// const moment = require('moment');
 
 const bookSchema = new mongoose.Schema({
   image: String,
@@ -19,22 +19,21 @@ const groupSchema = new mongoose.Schema({
   info: { type: String, default: 'Add some info about your group!'},
   public: { type: String },
   members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  // currentBook: { type: String },
   books: [ bookSchema ],
   creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   comments: [ commentSchema ]
 });
 
-bookSchema.path('startDate')
-  .get(function formatDate(startDate){
-    return moment(startDate).format('YYYY-MM-DD');
-  });
-
-bookSchema.path('endDate')
-  .get(function formatDate(endDate){
-    return moment(endDate).format('YYYY-MM-DD');
-  });
-
-bookSchema.set('toJSON', { getters: true });
+// bookSchema.path('startDate')
+//   .get(function formatDate(startDate){
+//     return moment(startDate).format('YYYY-MM-DD');
+//   });
+//
+// bookSchema.path('endDate')
+//   .get(function formatDate(endDate){
+//     return moment(endDate).format('YYYY-MM-DD');
+//   });
+//
+// bookSchema.set('toJSON', { getters: true });
 
 module.exports = mongoose.model('Group', groupSchema);

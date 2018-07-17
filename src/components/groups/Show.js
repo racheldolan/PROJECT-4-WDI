@@ -112,9 +112,9 @@ class GroupsShow extends React.Component {
     this.setState({ comment: e.target.value }, () => console.log(this.state));
   }
 
-  handleCommentDelete = () => {
+  handleCommentDelete = (id) => {
     axios({
-      url: `/api/groups/${this.props.match.params.id}/comments/${this.props.match.params.id}`,
+      url: `/api/groups/${this.props.match.params.id}/comments/${id}`,
       method: 'DELETE',
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })

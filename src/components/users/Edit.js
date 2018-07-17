@@ -57,6 +57,11 @@ class UserEdit extends React.Component {
                 <textarea className="input" type="bio" name="bio" placeholder="Bio" onChange={this.handleChange}
                   value={this.state.bio || ''} />
               </div>
+              <div className="field">
+                <label className="location">Location</label>
+                <textarea className="input" type="location" name="location" placeholder="Location" onChange={this.handleChange}
+                  value={this.state.location || ''} />
+              </div>
 
               <button className="button">Submit</button>
             </form>

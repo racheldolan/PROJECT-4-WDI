@@ -23,7 +23,7 @@ const GroupsForm = ({ handleSubmit, handleChange, data }) => {
               <textarea className="input" name="info" placeholder="Group Info" onChange={handleChange}
                 value={data.info || ''}/>
             </div>
-            <div className="field">
+            {/* <div className="field">
               <label className="label">Group Privacy</label>
               <div className="control">
                 <div className="select is-fullwidth">
@@ -34,7 +34,7 @@ const GroupsForm = ({ handleSubmit, handleChange, data }) => {
                   </select>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <button className="button form-button">Submit Group</button>
           </form>

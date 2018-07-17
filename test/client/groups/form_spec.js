@@ -16,8 +16,7 @@ describe('GroupsForm tests', () => {
       data: {
         groupName: 'test',
         image: 'test',
-        info: 'test',
-        public: 'test'
+        info: 'test'
       }
     };
 

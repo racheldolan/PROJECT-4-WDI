@@ -48,7 +48,7 @@ class UserShow extends React.Component {
           <section className="container groups-show-container">
             <div className="columns is-multiline">
               <div className="column is-one-third-desktop">
-                <img src={this.state.user.image} alt={this.state.user.username} />
+                <img className="user-show-image" src={this.state.user.image} alt={this.state.user.username} />
                 <hr />
                 <h1 className="title">Groups:</h1>
               </div>
@@ -56,6 +56,7 @@ class UserShow extends React.Component {
               <div className="column is-two-thirds-desktop">
                 <ul>
                   <li>{this.state.user.username} belongs to {this.state.user.groups.length} group(s)</li>
+                  <li>{this.state.user.location}</li>
                 </ul>
 
                 <div className="bio">
@@ -64,7 +65,7 @@ class UserShow extends React.Component {
 
               </div>
 
-              <div className="columns">
+
               {this.state.user.groups.map(group =>
                 <div  key={group._id} className="column is-one-third-desktop is-half-mobile">
                   <div>
@@ -77,7 +78,6 @@ class UserShow extends React.Component {
                   </div>
                 </div>
               )}
-              </div>
             </div>
           </section>
 

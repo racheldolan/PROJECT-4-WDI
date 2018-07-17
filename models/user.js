@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: 'this field is required'},
   admin: {type: Boolean},
   image: { type: String, default: 'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png'},
-  bio: { type: String, default: 'Update your bio!' }
+  bio: { type: String, default: 'Update your bio!' },
+  location: { type: String }
 });
 
 userSchema.virtual('groups', {
