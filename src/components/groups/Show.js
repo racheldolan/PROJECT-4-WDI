@@ -30,18 +30,15 @@ class GroupsShow extends React.Component {
 
   // deletes group
   handleDelete = () => {
-    axios({
-      url: `/api/groups/${this.props.match.params.id}`,
-      method: 'DELETE'
-    })
+    axios.delete(`/api/groups/${this.props.match.params.id}`)
       .then(() => this.props.history.push('/groups'));
   }
 
   // removes user from group
   leaveGroup = () => {
     axios({
-      method: 'DELETE',
       url: `/api/groups/${this.props.match.params.id}/members`,
+      method: 'DELETE',
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(res => this.setState({ group: res.data }));
@@ -142,7 +139,6 @@ class GroupsShow extends React.Component {
               <h1 className="title">
                 {this.state.group.groupName}
               </h1>
-              {/* displays books urls currently - needs to move */}
             </div>
           </div>
         </section>
@@ -159,13 +155,11 @@ class GroupsShow extends React.Component {
                   </Link>
                   <button className="button groups-show-buttons" onClick={this.handleDelete}>Delete</button>
                 </div>}
+
                 {/* displays group info */}
                 <div className="content">
-
                   <p>{this.state.group.info}</p>
-
                   <p>Members:  {this.state.group.members.length}</p>
-
 
                   {this.state.group.creator && <Link to={`/users/${this.state.group.creator._id}`}> <p className="groups-show-creator">Created by <strong>{this.state.group.creator.username}</strong></p>
                   </Link>}

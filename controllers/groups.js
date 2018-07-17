@@ -86,6 +86,8 @@ function commentCreateRoute(req, res, next) {
 function commentDeleteRoute(req, res, next) {
   Group
     .findById(req.params.id)
+    .populate('members')
+    .populate('comments.author')
     .then(group => {
       const comment = group.comments.id(req.params.commentId);
       comment.remove();

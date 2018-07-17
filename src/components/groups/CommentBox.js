@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Auth from '../../lib/Auth';
 
 const CommentBox = ({ data, handleCommentDelete }) => {
   return(
@@ -24,7 +25,7 @@ const CommentBox = ({ data, handleCommentDelete }) => {
             </div>
           </div>
           <div className="media-right">
-            <button onClick={() => handleCommentDelete(comment._id)} className="delete"></button>
+            {Auth.getPayload().sub === comment.author._id && <button onClick={() => handleCommentDelete(comment._id)} className="delete"></button>}
           </div>
         </article>
       )}
