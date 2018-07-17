@@ -66,6 +66,7 @@ class Profile extends React.Component{
                 <div className="column is-two-thirds-desktop">
                   <ul>
                     <li>You belong to {this.state.user.groups.length} group(s)</li>
+                    <li>{this.state.user.location}</li>
                   </ul>
 
                   <div className="bio">

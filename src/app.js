@@ -16,6 +16,7 @@ import Profile from './components/users/Profile';
 import UserShow from './components/users/Show';
 import UserEdit from './components/users/Edit';
 import Navbar from './components/common/Navbar';
+import NotFound from './pages/NotFound';
 import Home from './pages/Home';
 
 
@@ -29,14 +30,15 @@ class App extends React.Component {
           <Switch>
             <Route path="/register" component={AuthRegister} />
             <Route path="/login" component={AuthLogin} />
-            <Route path="/profile" component={Profile} />
+            <ProtectedRoute path="/profile" component={Profile} />
             <ProtectedRoute path="/groups/new" component={GroupsNew} />
             <ProtectedRoute path="/groups/:id/edit" component={GroupsEdit} />
-            <Route path="/groups/:id" component={GroupsShow} />
+            <ProtectedRoute path="/groups/:id" component={GroupsShow} />
             <Route path="/groups" component={GroupsIndex} />
             <ProtectedRoute path="/users/:id/edit" component={UserEdit} />
             <ProtectedRoute path="/users/:id" component={UserShow} />
             <Route path="/" component={Home} />
+            <Route component={NotFound} />
           </Switch>
         </main>
       </BrowserRouter>

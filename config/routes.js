@@ -8,7 +8,7 @@ const secureRoute = require('../lib/secureRoute');
 router.post('/vision', googleVision.getPhotoAnalysis);
 
 router.route('/users/:id')
-  .get(users.show)
+  .get(secureRoute, users.show)
   .put(users.update)
   .delete(users.delete);
 

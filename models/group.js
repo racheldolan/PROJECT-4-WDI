@@ -21,7 +21,8 @@ const groupSchema = new mongoose.Schema({
   members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   books: [ bookSchema ],
   creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  comments: [ commentSchema ]
+  comments: [ commentSchema ],
+  location: String
 });
 
 // bookSchema.path('startDate')

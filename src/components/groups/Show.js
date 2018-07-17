@@ -118,7 +118,7 @@ class GroupsShow extends React.Component {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(() => this.props.history.push(`/groups/${this.props.match.params.id}`));
+      .then(res => this.setState({ group: res.data }));
   }
 
   checkIfInGroup = () => {
@@ -133,7 +133,7 @@ class GroupsShow extends React.Component {
 
 
   render(){
-
+    console.log(this.state.currentUser);
     return(
       <main className="groups-show">
         <section className="hero groups-show-hero">
@@ -149,7 +149,7 @@ class GroupsShow extends React.Component {
 
         <div className="groups-show-info">
           <section className="container groups-show-container">
-            <div className="columns">
+            <div className="columns is-multiline">
 
               <div className="column is-two-thirds-desktop">
                 <img className="image groups-show-image" src={this.state.group.image} alt={this.state.group.groupName} />
@@ -185,7 +185,6 @@ class GroupsShow extends React.Component {
                       <img className="image-book" src={book.image} />
                       <p>{this.state.group.books.endDate}</p>
                     </a>
-
                   )}
 
 
@@ -204,20 +203,25 @@ class GroupsShow extends React.Component {
             {/*  displays users who belong to a group */}
             <h2 className="subtitle">Members</h2>
             <div className="columns is-multiline">
-              {this.state.group.members.map((member, i) =>
-                <div key={i} className="column is-one-quarter-desktop">
-                  <div className="card">
-                    <div className="card-image">
-                      <Link to={`/users/${member._id}`}>
-                        <figure className="image is-4by4">
-                          <img className="image groups-show-image" src={member.image} alt={member.username} />
-                        </figure>
-                      </Link>
+              <div className="column is-half-desktop">
+                <div className="columns is-multiline">
+                  {this.state.group.members.map((member, i) =>
+                    <div className="column is-4" key={i}>
+                      <div className="card">
+                        <div className="card-image">
+                          <Link to={`/users/${member._id}`}>
+                            <figure className="image is-4by4">
+                              <img className="image groups-show-image" src={member.image} alt={member.username} />
+                            </figure>
+                          </Link>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
-              )}
-              <div className="column">
+              </div>
+
+              <div className="column is-half-desktop">
                 <CommentForm
                   handleCommentChange={this.handleCommentChange}
                   commentCreate={this.commentCreate}
@@ -227,9 +231,11 @@ class GroupsShow extends React.Component {
                   data={this.state}
                   handleCommentDelete={this.handleCommentDelete}
                 />
-
               </div>
             </div>
+
+
+
           </section>
         </div>
       </main>

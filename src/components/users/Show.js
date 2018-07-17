@@ -19,7 +19,8 @@ class UserShow extends React.Component {
   componentDidMount() {
     axios({
       url: `/api/users/${this.props.match.params.id}`,
-      method: 'GET'
+      method: 'GET',
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(res => this.setState({ user: res.data  }, () => console.log(this.state)));
   }
@@ -56,7 +57,7 @@ class UserShow extends React.Component {
               <div className="column is-two-thirds-desktop">
                 <ul>
                   <li>{this.state.user.username} belongs to {this.state.user.groups.length} group(s)</li>
-                  <li>{this.state.user.location}</li>
+                  <li>Based in {this.state.user.location}</li>
                 </ul>
 
                 <div className="bio">
@@ -67,7 +68,7 @@ class UserShow extends React.Component {
 
 
               {this.state.user.groups.map(group =>
-                <div  key={group._id} className="column is-one-third-desktop is-half-mobile">
+                <div  key={group._id} className="column is-4 is-mobile">
                   <div>
                     <div className="users-show-info">
                       <Link to={`/groups/${group._id}`}>

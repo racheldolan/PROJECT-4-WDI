@@ -1,14 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CommentBox = ({ data, handleCommentDelete }) => {
   return(
-    <section>
+    <section className="comment-box">
       {data.group.comments.map((comment, i) =>
         <article key={i} className="media">
 
           <figure className="media-left">
             <div className="image is-64x64">
-              <img src={comment.author.image} />
+              <Link to={`/users/${comment.author._id}`}>
+                <img src={comment.author.image} />
+              </Link>
             </div>
           </figure>
           <div className="media-content">
