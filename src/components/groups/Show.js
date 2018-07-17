@@ -143,7 +143,7 @@ class GroupsShow extends React.Component {
           <section className="container groups-show-container">
             <div className="columns is-multiline">
 
-              <div className="column is-two-thirds-desktop">
+              <div className="column is-two-thirds-desktop is-half-tablet is-mobile">
                 <img className="image groups-show-image" src={this.state.group.image} alt={this.state.group.groupName} />
                 {Auth.getPayload().sub === this.state.group.creator._id && <div>
                   <Link to={`/groups/${this.state.group._id}/edit`}>
@@ -193,7 +193,7 @@ class GroupsShow extends React.Component {
             {/*  displays users who belong to a group */}
             <h2 className="subtitle">Members</h2>
             <div className="columns is-multiline">
-              <div className="column is-half-desktop">
+              <div className="column is-half-desktop is-mobile">
                 <div className="columns is-multiline">
                   {this.state.group.members.map((member, i) =>
                     <div className="column is-4" key={i}>
