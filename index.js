@@ -5,22 +5,19 @@ mongoose.Promise = require('bluebird');
 const bodyParser = require('body-parser');
 const { port, dbURI } = require('./config/environment');
 const errorHandler = require('./lib/errorHandler');
+const routes = require('./config/routes');
 
 mongoose.connect(dbURI);
+app.use(express.static(`${__dirname}/public`));
 
-const routes = require('./config/routes');
 
 app.use(bodyParser.json({
   limit: '1000kb'
 }));
-
 app.use('/api', routes);
-
-app.use(express.static(`${__dirname}/public`));
+app.get('/*', (req, res) => res.sendFile(`${__dirname}/public/index.html`));
 
 app.use(errorHandler);
-
-// app.get('/*', (req, res) => res.sendFile(`${__dirname}/public/index.html`));
 
 app.listen(port, () => console.log(`Express running on port ${port}`));
 
