@@ -151,12 +151,13 @@ class GroupsShow extends React.Component {
                 </div>}
 
                 {/* displays group info */}
-                <div className="content">
+                <div className="content groups-blurb">
                   <p>{this.state.group.info}</p>
                   <p>Members:  {this.state.group.members.length}</p>
 
                   {this.state.group.creator && <Link to={`/users/${this.state.group.creator._id}`}><p className="groups-show-creator">Created by <strong>{this.state.group.creator.username}</strong></p>
                   </Link>}
+                  {this.state.group.creator && <p> Get in touch at <a href={`mailto:${this.state.group.creator.email}`}>{this.state.group.creator.email} </a></p>}
                   <button onClick={this.handleJoin} className="button groups-show-buttons">{this.checkIfInGroup() ? 'Leave Group' : 'Join Group'}</button>
                 </div>
                 <hr />

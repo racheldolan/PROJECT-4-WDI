@@ -74,7 +74,7 @@ class UserShow extends React.Component {
               <div className="column is-two-thirds-desktop is-half-tablet is-mobile">
                 {Auth.getPayload().sub !== this.state.user._id && <h2 className="subtitle">{this.state.user.username} belongs to {this.state.user.groups.length} group(s)</h2>}
                 {Auth.getPayload().sub === this.state.user._id && <h2 className="subtitle">You belong to {this.state.user.groups.length} group(s)</h2>}
-                <h2 className="subtitle">Based in {this.state.user.location}</h2>
+                {this.state.user.location && <h2 className="subtitle">Based in {this.state.user.location}</h2>}
                 <div className="bio">
                   <p>{this.state.user.bio}</p>
                 </div>

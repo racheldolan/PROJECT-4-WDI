@@ -7,6 +7,10 @@
   border: 5px solid $primary;
 }
 
+.groups-blurb {
+  margin-top: 30px;
+}
+
 .groups-show {
   font-family: $font-primary;
   padding-bottom: 50px;
@@ -31,7 +35,7 @@
 }
 
 .groups-show-creator {
-  color: grey;
+  color: #4a4a4a;
 }
 
 .comments {
