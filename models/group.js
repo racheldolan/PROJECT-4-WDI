@@ -3,9 +3,7 @@ const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
   image: String,
-  url: String,
-  startDate: { type: Date },
-  endDate: { type: Date }
+  url: String
 });
 
 const commentSchema = new mongoose.Schema({

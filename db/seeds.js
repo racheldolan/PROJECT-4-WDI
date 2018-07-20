@@ -92,6 +92,36 @@ mongoose.connect(dbURI, (err, db) => {
           info: 'This group was created to connect lovers of stories across the internet with their characters and plotlines, dreams and recommendations. Bibliophiles unite, and challenges abound. Come one, come all. All you need to join is a desire to read.',
           members: users[5],
           creator: users[4]
+        },{
+          groupName: 'Modern Classics',
+          image: 'https://www.thecurvedhouse.com/wp-content/uploads/2015/04/00007682-584x578.png',
+          info: 'For people interested in keeping up with the modern literary classics. We will be reading fiction and fine literature from 1900 to present, with the intent of finding those literary gems of timeless and enduring quality.',
+          members: users[5],
+          creator: users[4]
+        }, {
+          groupName: '21st Century American Literature',
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHoJEcNC7NbuMhzF0ZMygnojJJTCocJ-fPVrjCq7QbEr2iRnRqng',
+          info: 'This is a group for discerning readers looking to discover, explore, and critically discuss some of America\'s finest works of literature. 20th and 21st Century American literary studies explores the intersections of technological and culture innovation with aesthetic practices.',
+          members: users[3],
+          creator: users[0]
+        }, {
+          groupName: 'Non-Fiction Book Club',
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwpRSdtRFPHcNBQ-WFdLSuqtYsfoOewWFkBXkLUEvHRBVjmV_k',
+          info: 'This group is for anyone who enjoys Non Fiction. Genres discussed here include Histories, Autobiographies, Biographies, Memoirs, Science, Travelogues, True Crime, and ... Please join us to find your next great book or to share your thoughts about one that you\'ve enjoyed.',
+          members: users[1],
+          creator: users[2]
+        }, {
+          groupName: 'Based on a true story',
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwg_Tg768OX0qmuyoSB1EhrBAFLGfYFfz8stfOnESZFl9B-yyz_w',
+          info: 'Choosing a nonfiction read not only provides a change of pace, but can inspire thought-provoking conversations based on real-life events. From medical mysteries to family memoirs, these recent nonfiction book club books are sure to satisfy any fiction fan.',
+          members: users[3],
+          creator: users[0]
+        }, {
+          groupName: 'The F-Word',
+          image: 'http://static1.squarespace.com/static/58c5c3382e69cfc360a97acd/t/5913d73e29687f8f905051f9/1494472511091/Photo+Sep+13%2C+2+54+26+PM.jpg?format=1000w',
+          info: 'This is our reading group for anybody who loves to read and identifies as a feminist. But most importantly, it\'s a space for people to come together and discuss literature with other feminists!',
+          members: users[2],
+          creator: users[3]
         }]);
 
       }))

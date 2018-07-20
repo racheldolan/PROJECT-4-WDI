@@ -21,7 +21,6 @@ function createRoute(req, res, next) {
   req.body.creator = req.currentUser;
   Group
     .create(req.body)
-    .populate('creator')
     .then(group => res.status(201).json(group))
     .catch(next);
 }

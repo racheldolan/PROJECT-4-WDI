@@ -53,7 +53,7 @@ class GroupsShow extends React.Component {
       .then(res => this.setState({ group: res.data }, console.log(this.state)));
   }
 
-  // this.setState({ group: res.data }, console.log(this.state)
+  // makes the request to the back end which then makes a proxy request to vision api
 
   handleChange = ({ target: { name, value } }) => {
     if(name === 'image') {
@@ -76,10 +76,9 @@ class GroupsShow extends React.Component {
     this.setState({ [name]: value });
   }
 
-  // makes the request to the back end which then makes a proxy request to vision api
+  // saves book  in database
   handleSubmit = (e) => {
     e.preventDefault();
-
     axios({
       url: `/api/groups/${this.props.match.params.id}`,
       method: 'PUT',
@@ -154,7 +153,6 @@ class GroupsShow extends React.Component {
                 <div className="content groups-blurb">
                   <p>{this.state.group.info}</p>
                   <p>Members:  {this.state.group.members.length}</p>
-
                   {this.state.group.creator && <Link to={`/users/${this.state.group.creator._id}`}><p className="groups-show-creator">Created by <strong>{this.state.group.creator.username}</strong></p>
                   </Link>}
                   {this.state.group.creator && <p> Get in touch at <a href={`mailto:${this.state.group.creator.email}`}>{this.state.group.creator.email} </a></p>}
@@ -164,7 +162,7 @@ class GroupsShow extends React.Component {
               </div>
 
 
-
+              {/* displays book */}
               <div className="column is-one-third-desktop is-half-mobile">
                 <div className="current-book">
                   <h1 className="title">Current Book</h1>
@@ -172,7 +170,6 @@ class GroupsShow extends React.Component {
                   {this.state.group.books.map((book, i) =>
                     <a key={i} href={book.url} target="_blank">
                       <img className="image-book" src={book.image} />
-                      <p>{this.state.group.books.endDate}</p>
                     </a>
                   )}
 
@@ -180,8 +177,6 @@ class GroupsShow extends React.Component {
                   {/* form for inputting images which then makes call to api on submit */}
                   {Auth.getPayload().sub === this.state.group.creator._id && <form onSubmit={this.handleSubmit}>
                     <Base64 name="image" handleChange={this.handleChange} />
-                    {/* <label className="label">End Date</label>
-                    <input className="input" type="date" name="endDate" placeholder="End Date" onChange={this.handleDateChange} /> */}
                     <button>Add to group</button>
                   </form>}
                 </div>
