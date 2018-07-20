@@ -30,7 +30,11 @@ class GroupsShow extends React.Component {
 
   // deletes group
   handleDelete = () => {
-    axios.delete(`/api/groups/${this.props.match.params.id}`)
+    axios({
+      url: `/api/groups/${this.props.match.params.id}`,
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
+    })
       .then(() => this.props.history.push('/groups'));
   }
 
