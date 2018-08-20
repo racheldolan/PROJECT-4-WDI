@@ -16,7 +16,7 @@ const Base64 = ({ name, handleChange }) => {
 
   return (
     <input  className="groups-show-buttons" type="file" accept="image/*" onChange={readFile} />
-    
+
   );
 };
 
