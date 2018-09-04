@@ -38,12 +38,11 @@ mongoose.connect(dbURI, (err, db) => {
       password: 'bella',
       passwordConfirmation: 'bella'
     }])
-      .then(users => {
+      .then(() => {
         return Group.create([{
           groupName: 'Sci-fi and Fantasy book club',
           image: 'https://www.astrologyzone.com/wp-content/uploads/2016/04/AZ_Planets_All.jpg',
-          info: 'We read one new fantasy book and one new science fiction book a month. Each month we alternate between a theme with books nominated by our members, and a curated "random" selection from the mods.',
-          members: users[0]
+          info: 'We read one new fantasy book and one new science fiction book a month. Each month we alternate between a theme with books nominated by our members, and a curated "random" selection from the mods.'
         },{
           groupName: 'The History Book Club',
           image: 'https://www.msgdental.co.uk/wp-content/uploads/2018/02/history-books.jpg',

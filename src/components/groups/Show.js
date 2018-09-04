@@ -146,7 +146,7 @@ class GroupsShow extends React.Component {
 
               <div className="column is-two-thirds-desktop is-half-tablet is-mobile">
                 <img className="image groups-show-image" src={this.state.group.image} alt={this.state.group.groupName} />
-                {Auth.getPayload().sub === this.state.group.creator._id && <div>
+                {this.state.group.creator && Auth.getPayload().sub === this.state.group.creator._id && <div>
                   <Link to={`/groups/${this.state.group._id}/edit`}>
                     <button className="button groups-show-buttons">Edit</button>
                   </Link>
