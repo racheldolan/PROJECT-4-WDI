@@ -40,7 +40,7 @@ For this project I have used the following technologies:
 * Babel
 * Webpack
 * Yarn
-* JWT 
+* JWT
 * Chai
 * Mocha
 * nyc
@@ -68,6 +68,14 @@ The application was built using React and Express, and used a RESTful design pat
 ###### Groups that a user belongs to or has created appear on their profile which is visible not only to them but to other users
 
 The app allows users to create and join book groups online to be part of a discussion. I used Google’s Vision API which allowed the creator of a book group to take a photo of a book, post it in the group, and the API then reads the image and sends back urls to the most relevant websites which feature the same image, in this case predominantly websites to purchase or read reviews of a book.
+
+There are two models - one for users, one for groups - and within the group model is a book schema and a comment schema which are referenced in the group schema.
+
+The user model uses two Virtuals in order to populate the group profile with members and a creator.
+
+I really enjoyed working with React to create a component-based application, however found myself making too many axios requests, so had to spend a good chunk of time refactoring to cut the number of requests down, particularly on the groups show page.
+
+I also really liked going back to writing my own vanilla JavaScript; in my last project I used a lot of dependencies and built-in features of Angular to do things like filtering data.
 
 <p align="center"><img src='./src/assets/images/chapter-book-upload.gif'></p>
 

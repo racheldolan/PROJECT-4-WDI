@@ -129,8 +129,6 @@ class GroupsShow extends React.Component {
   }
 
   render(){
-    // console.log(this.state.currentUser);
-    console.log(this.state);
     return(
       <main className="groups-show">
         <section className="hero groups-show-hero">
@@ -149,12 +147,12 @@ class GroupsShow extends React.Component {
 
               <div className="column is-two-thirds-desktop is-half-tablet is-mobile">
                 <img className="image groups-show-image" src={this.state.group.image} alt={this.state.group.groupName} />
-                {Auth.getPayload().sub === this.state.group.creator._id && <div>
-                  <Link to={`/groups/${this.state.group._id}/edit`}>
+                <div>
+                  {this.state.group.creator && Auth.getPayload().sub === this.state.group.creator._id && <Link to={`/groups/${this.state.group._id}/edit`}>
                     <button className="button groups-show-buttons">Edit</button>
-                  </Link>
+                  </Link>}
                   <button className="button groups-show-buttons" onClick={this.handleDelete}>Delete</button>
-                </div>}
+                </div>
 
                 {/* displays group info */}
                 <div className="content groups-blurb">
@@ -182,7 +180,7 @@ class GroupsShow extends React.Component {
 
 
                   {/* form for inputting images which then makes call to api on submit */}
-                  {Auth.getPayload().sub === this.state.group.creator._id && <form onSubmit={this.handleSubmit}>
+                  {this.state.group.creator && Auth.getPayload().sub === this.state.group.creator._id && <form onSubmit={this.handleSubmit}>
                     <Base64 name="image" handleChange={this.handleChange} />
                     <button>Add to group</button>
                   </form>}
