@@ -2,6 +2,7 @@ const { googleKey } = require('../config/environment');
 const rp = require('request-promise');
 
 function getPhotoAnalysis(req, res, next) {
+  console.log(req.body.image);
   const request = {
     requests: [
       {
@@ -17,7 +18,9 @@ function getPhotoAnalysis(req, res, next) {
     body: request,
     json: true
   })
-    .then(response => res.json(response.responses[0].webDetection.pagesWithMatchingImages))
+    // .then(response => console.log(res.json(response)))
+    .then(response => res.json(response.responses[0].webDetection.visuallySimilarImages))
+    // .then(response => res.json(response.responses[0].webDetection.pagesWithMatchingImages))
     .catch(next);
 }
 

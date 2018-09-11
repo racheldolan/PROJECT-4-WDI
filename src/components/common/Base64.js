@@ -7,6 +7,7 @@ const Base64 = ({ name, handleChange }) => {
   fileReader.onload = function() {
     handleChange({
       target: { name: name, value: this.result }
+
     });
   };
 
