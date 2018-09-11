@@ -60,6 +60,7 @@ class GroupsShow extends React.Component {
   // makes the request to the back end which then makes a proxy request to vision api
 
   handleChange = ({ target: { name, value } }) => {
+    console.log(name);
     if(name === 'image') {
       return axios({
         url: '/api/vision',
@@ -75,9 +76,9 @@ class GroupsShow extends React.Component {
           }
           const group = { ...this.state.group, books };
           this.setState({ group });
+          this.setState({ [name]: value });
         });
     }
-    this.setState({ [name]: value });
   }
 
 
@@ -128,7 +129,6 @@ class GroupsShow extends React.Component {
   }
 
   render(){
-    console.log(this.state);
     return(
       <main className="groups-show">
         <section className="hero groups-show-hero">
@@ -173,7 +173,7 @@ class GroupsShow extends React.Component {
                   <h1 className="title">Current Book</h1>
                   <h2 className="subtitle">Click for more info</h2>
                   {this.state.group.books.map((book, i) =>
-                    <a key={i} href={book.url} target="_blank">
+                    <a key={i} href={book.url} target="_blank" rel="noopener noreferrer">
                       <img className="image-book" src={book.image} />
                     </a>
                   )}
