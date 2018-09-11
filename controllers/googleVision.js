@@ -17,7 +17,8 @@ function getPhotoAnalysis(req, res, next) {
     body: request,
     json: true
   })
-    .then(response => res.json(response.responses[0].webDetection.pagesWithMatchingImages))
+    // .then(response => res.json(response.responses[0].webDetection.pagesWithMatchingImages))
+    .then(response => res.json(response.responses[0].webDetection.visuallySimilarImages))
     .catch(next);
 }
 
